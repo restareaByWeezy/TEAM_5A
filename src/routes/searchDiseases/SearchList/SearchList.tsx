@@ -4,6 +4,7 @@ import cx from 'classnames'
 import styles from './SearchList.module.scss'
 import '../SearchDiseases.scss'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState, MouseEvent, FocusEvent } from 'react'
+import { SearchIcon } from 'assets/svgs'
 
 interface Props {
   searchList: IItem[] | undefined
@@ -44,8 +45,8 @@ const SearchList = ({ searchList, isOpen, setIsOpen }: Props) => {
     searchList.length !== 0 &&
     searchList.map((item, idx) => (
       <li className={cx(styles.listContent, { [styles.isFocus]: idx === index })} key={item.sickCd}>
-        {item.sickNm}
-        <span>{idx}</span>
+        <SearchIcon className={styles.searchIcon} />
+        <div>{item.sickNm}</div>
       </li>
     ))
 

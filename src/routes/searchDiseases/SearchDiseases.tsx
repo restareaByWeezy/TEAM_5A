@@ -1,40 +1,40 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
-import { debounce } from 'lodash'
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import { useQuery } from 'react-query';
+import { debounce } from 'lodash';
 
-import { getSearchDiseasesApi } from 'services/search'
+import { getSearchDiseasesApi } from 'services/search';
 
-import './SearchDiseases.scss'
-import SearchList from './SearchList/SearchList'
+import './SearchDiseases.scss';
+import SearchList from './SearchList/SearchList';
 
 const SearchDiseases = () => {
-  const [inputValue, setInputValue] = useState<string>('')
-  const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState<string>('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const { data } = useQuery(
     ['getDiseaseNameApi', inputValue],
     () =>
       getSearchDiseasesApi({ searchText: inputValue }).then((res) => {
         // eslint-disable-next-line no-console
-        console.count('API Call')
-        if (res.data.response.body.totalCount > 0) setIsOpen(true)
-        return res.data.response.body
+        console.count('API Call');
+        if (res.data.response.body.totalCount > 0) setIsOpen(true);
+        return res.data.response.body;
       }),
     {
       enabled: !!inputValue,
       staleTime: 2 * 60 * 1000,
     }
-  )
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
+    setInputValue(e.target.value);
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
-  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), [])
+  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
   return (
     <div className='bg'>
@@ -57,7 +57,7 @@ const SearchDiseases = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchDiseases
+export default SearchDiseases;

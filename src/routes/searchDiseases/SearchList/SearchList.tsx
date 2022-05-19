@@ -26,8 +26,8 @@ const SearchList = ({ searchList }: Props) => {
         setIndex((prev) => (prev > 0 ? prev - 1 : searchList.length - 1));
         break;
       case 'Escape':
-        setIndex(-1);
         dispatch(isHidden());
+        setIndex(-1);
         break;
     }
   };
@@ -39,16 +39,22 @@ const SearchList = ({ searchList }: Props) => {
     };
   });
 
+  useEffect(() => {
+    setIndex(-1);
+  }, [searchList]);
+
   if (!searchList) return null;
 
   const loadSearchList =
     searchList.length !== 0 &&
-    searchList.map((item, idx) => (
-      <li className={cx(styles.listContent, { [styles.isFocus]: idx === index })} key={item.sickCd}>
-        {item.sickNm}
-        <span>{idx}</span>
-      </li>
-    ));
+    searchList.map((item, idx) => {
+      return (
+        <li className={cx(styles.listContent, { [styles.isFocus]: idx === index })} key={item.sickCd}>
+          {item.sickNm}
+          <span>{idx}</span>
+        </li>
+      );
+    });
 
   return (
     <div className={styles.list}>

@@ -7,7 +7,7 @@ interface Params {
   searchText: string;
 }
 
-export const getSearchDiseasesApi = (params: Params) =>
+export const getSearchDiseasesAPI = (params: Params) =>
   axios.get<IDiseaseAPIRes>(`${SEARCH_DISEASES_BASE_URL}`, {
     params: {
       ...params,

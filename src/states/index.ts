@@ -1,16 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
 
-import system from './system'
-import todo from './todo'
+import searchListRenderReducer from './condition/searchListRender';
+import searchRecommendReducer from './condition/searchRecommend';
+import searchResultReducer from './condition/searchResult';
+import searchValueReducer from './value/searchValue';
 
 export const store = configureStore({
   reducer: {
-    system,
-    todo,
+    searchListRender: searchListRenderReducer,
+    searchRecommend: searchRecommendReducer,
+    searchResult: searchResultReducer,
+    searchValue: searchValueReducer,
   },
-  devTools: process.env.NODE_ENV !== 'production',
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
-})
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnMount: false } },
 })
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18n}>

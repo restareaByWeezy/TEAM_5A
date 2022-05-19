@@ -15,3 +15,13 @@ export const getSearchDiseasesApi = (params: Params) =>
       _type: 'json',
     },
   })
+
+// 전체 불러오는 call
+
+// export const getSearchDiseasesApi = () =>
+//   axios.get<IDiseaseAPIRes>(`${SEARCH_DISEASES_BASE_URL}`, {
+//     params: {
+//       ServiceKey: process.env.REACT_APP_DISEASES_ID,
+//       _type: 'json',
+//     },
+//   })

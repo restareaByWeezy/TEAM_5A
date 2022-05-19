@@ -1,7 +1,7 @@
 import { IItem } from 'types/search'
 import cx from 'classnames'
 
-import styles from './searchList.module.scss'
+import styles from './SearchList.module.scss'
 import '../SearchDiseases.scss'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState, MouseEvent, FocusEvent } from 'react'
 
@@ -51,7 +51,6 @@ const SearchList = ({ searchList, isOpen, setIsOpen }: Props) => {
 
   return (
     <div className={styles.list}>
-      <p>추천 검색어</p>
       <ul>{loadSearchList}</ul>
     </div>
   )

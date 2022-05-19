@@ -6,8 +6,14 @@ import { getSearchDiseasesApi } from 'services/search'
 
 import './SearchDiseases.scss'
 import SearchList from './SearchList/SearchList'
+import { useAppDispatch, useAppSelector } from 'hooks'
+import { getDisease, setDisease } from 'states/disease'
+import { SearchIcon } from 'assets/svgs'
 
 const SearchDiseases = () => {
+  const dispatch = useAppDispatch()
+  const disease = useAppSelector(getDisease)
+
   const [inputValue, setInputValue] = useState<string>('')
   const [isOpen, setIsOpen] = useState(false)
 
@@ -28,6 +34,7 @@ const SearchDiseases = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
+    // dispatch(setDisease(data?.items.item))
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -46,6 +53,7 @@ const SearchDiseases = () => {
             </h1>
             <form className='search-wrapper' onSubmit={handleSubmit}>
               <div className='input-wrapper'>
+                <SearchIcon className='search-icon' />
                 <input type='text' placeholder='질환명을 입력해 주세요.' onChange={debouncedChangeHandler} />
               </div>
               <button type='submit' className='search-textbox'>

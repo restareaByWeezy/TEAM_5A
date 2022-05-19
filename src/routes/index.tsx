@@ -5,11 +5,7 @@ import styles from './Routes.module.scss'
 import { useAppSelector } from 'hooks'
 import { getTheme } from 'states/system'
 
-import TodoList from './TodoList'
-import Weather from './Weathers'
-import GNB from 'routes/_shared/GNB'
-
-import SearchDiseases from './searchDiseases/SearchDiseases'
+import SearchDiseases from './SearchDiseases'
 
 const App = () => {
   const theme = useAppSelector(getTheme)
@@ -20,14 +16,9 @@ const App = () => {
 
   return (
     <div className={styles.appWrapper}>
-      <GNB />
       <div className={styles.app}>
         <Routes>
           <Route path='/' element={<SearchDiseases />} />
-          <Route path='todo' element={<TodoList />} />
-          <Route path='weather' element={<Weather />}>
-            <Route path=':city' element={<Weather />} />
-          </Route>
           <Route path='*' element={<div>404</div>} />
         </Routes>
       </div>

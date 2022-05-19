@@ -5,7 +5,7 @@ import { debounce } from 'lodash'
 import { getSearchDiseasesApi } from 'services/search'
 
 import './SearchDiseases.scss'
-import SearchList from './SearchList/SearchList'
+import SearchList from '../../components/SearchList'
 
 const SearchDiseases = () => {
   const [inputValue, setInputValue] = useState<string>('')

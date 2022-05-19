@@ -1,31 +1,41 @@
 import { IItem } from 'types/search'
 import cx from 'classnames'
+import React, { useEffect, useState } from 'react'
 
-import styles from './searchList.module.scss'
-import '../SearchDiseases.scss'
-import { Dispatch, SetStateAction, useCallback, useEffect, useState, MouseEvent, FocusEvent } from 'react'
+import styles from './SearchList.module.scss'
+import 'routes/SearchDiseases/SearchDiseases.scss'
+import { SearchIcon } from 'assets/svgs'
 
 interface Props {
-  searchList: IItem[] | undefined
-  isOpen: boolean
-  setIsOpen: Dispatch<SetStateAction<boolean>>
+  searchList: IItem[]
+  setSearchKey: React.Dispatch<React.SetStateAction<string>>
+  isLoading: boolean
 }
 
-const SearchList = ({ searchList, isOpen, setIsOpen }: Props) => {
-  const [index, setIndex] = useState<number>(-1)
+const SearchList = ({ searchList, setSearchKey, isLoading }: Props) => {
+  const [index, setIndex] = useState(-1)
+
+  useEffect(() => {
+    setIndex(-1)
+  }, [searchList])
 
   const handleKeyPress = (event: { key: string }) => {
     if (!searchList) return
     if (event.key === 'ArrowDown') {
-      isOpen && setIndex((prev) => (prev < searchList.length - 1 ? prev + 1 : 0))
+      setIndex((prev) => (prev < searchList.length - 1 ? prev + 1 : 0))
     }
     if (event.key === 'ArrowUp') {
-      isOpen && setIndex((prev) => (prev > 0 ? prev - 1 : searchList.length - 1))
+      setIndex((prev) => (prev > 0 ? prev - 1 : searchList.length - 1))
     }
     if (event.key === 'Escape') {
       setIndex(-1)
-      setIsOpen(false)
+      setSearchKey('')
     }
+  }
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement>) => {
+    if (!e.currentTarget?.dataset.idx) return
+    setIndex(Number(e.currentTarget.dataset.idx))
   }
 
   useEffect(() => {
@@ -38,20 +48,26 @@ const SearchList = ({ searchList, isOpen, setIsOpen }: Props) => {
     }
   })
 
-  if (!searchList) return null
-
-  const loadSearchList =
-    searchList.length !== 0 &&
-    searchList.map((item, idx) => (
-      <li className={cx(styles.listContent, { [styles.isFocus]: idx === index })} key={item.sickCd}>
-        {item.sickNm}
-        <span>{idx}</span>
+  const title = searchList.length === 0 || isLoading ? '' : '추천 검색어'
+  const loadSearchList = (() => {
+    if (isLoading) return <p className={styles.title}>데이터 로딩 중</p>
+    if (searchList.length === 0) return <p className={styles.title}>검색 결과가 없습니다.</p>
+    return searchList.map((item, idx) => (
+      <li
+        className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
+        key={item.sickCd}
+        data-idx={idx}
+        onMouseEnter={handleMouseEnter}
+      >
+        <SearchIcon className={styles.icon} />
+        <span>{item.sickNm}</span>
       </li>
     ))
+  })()
 
   return (
     <div className={styles.list}>
-      <p>추천 검색어</p>
+      <p className={styles.title}>{title}</p>
       <ul>{loadSearchList}</ul>
     </div>
   )

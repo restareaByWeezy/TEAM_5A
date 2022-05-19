@@ -1,40 +1,38 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
 import { debounce } from 'lodash'
 
-import { getSearchDiseasesApi } from 'services/search'
+import { useSearchAll } from 'hooks/useSearchAll'
+// import { getSearchDiseasesApi } from 'services/search'
 
 import './SearchDiseases.scss'
-import SearchList from '../../components/SearchList'
+import SearchList from 'components/SearchList'
 
 const SearchDiseases = () => {
-  const [inputValue, setInputValue] = useState<string>('')
-  const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const { searchKey, setSearchKey, searchResult, isLoading } = useSearchAll()
 
-  const { data } = useQuery(
-    ['getDiseaseNameApi', inputValue],
-    () =>
-      getSearchDiseasesApi({ searchText: inputValue }).then((res) => {
-        // eslint-disable-next-line no-console
-        console.count('API Call')
-        if (res.data.response.body.totalCount > 0) setIsOpen(true)
-        return res.data.response.body
-      }),
-    {
-      enabled: !!inputValue,
-      staleTime: 2 * 60 * 1000,
-    }
-  )
+  useEffect(() => {
+    console.log(searchKey)
+  })
+
+  // let timeoutId: NodeJS.Timeout
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
+    const { value } = e.currentTarget
+
+    setInputValue(value)
+    setSearchKey(value)
+
+    // if (timeoutId) clearTimeout(timeoutId)
+    // timeoutId = setTimeout(() => setSearchKey(value), 100)
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
   }
 
-  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), [])
+  // const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), [])
 
   return (
     <div className='bg'>
@@ -46,13 +44,15 @@ const SearchDiseases = () => {
             </h1>
             <form className='search-wrapper' onSubmit={handleSubmit}>
               <div className='input-wrapper'>
-                <input type='text' placeholder='질환명을 입력해 주세요.' onChange={debouncedChangeHandler} />
+                <input type='text' placeholder='질환명을 입력해 주세요.' onChange={handleChange} value={inputValue} />
               </div>
               <button type='submit' className='search-textbox'>
                 검색
               </button>
             </form>
-            {isOpen && <SearchList searchList={data?.items.item} isOpen={isOpen} setIsOpen={setIsOpen} />}
+            {(isLoading || searchKey) && (
+              <SearchList searchList={searchResult} setSearchKey={setSearchKey} isLoading={isLoading} />
+            )}
           </div>
         </div>
       </div>

@@ -4,92 +4,91 @@
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/position';
 
-.bg {
-  display: flex;
+// .bg {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100vw;
+//   height: 100vh;
+
+//   .bgCenter {
+//     display: flex;
+//     align-items: flex-start;
+//     justify-content: center;
+//     width: 100%;
+//     height: 80%;
+//     background-color: colors.$BLUE;
+
+//     .container {
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       justify-content: center;
+//       width: 100%;
+//       padding-top: 70px;
+
+.searchContainer {
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  width: 700px;
+  @include flexbox.flexbox(center, center);
 
-  .bgCenter {
+  h1 {
+    margin-bottom: 20px;
+    font-size: 2.125rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    letter-spacing: -0.018em;
+  }
+
+  .searchWrapper {
+    position: relative;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: row;
     width: 100%;
-    height: 80%;
-    background-color: colors.$BLUE;
+    height: 72px;
 
-    .container {
+    .inputWrapper {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      flex-direction: row;
       width: 100%;
-      padding-top: 70px;
+      padding: 20px 24px 20px 55px;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      letter-spacing: -0.018em;
+      background-color: #ffffff;
+      border-radius: 42px;
 
-      .searchContainer {
-        width: 700px;
-
-        h1 {
-          margin-bottom: 20px;
-          font-size: 2.125rem;
-          font-weight: 700;
-          line-height: 1.6;
-          text-align: center;
-          letter-spacing: -0.018em;
-        }
-
-        .searchWrapper {
-          position: relative;
-          display: flex;
-          flex-direction: row;
-          height: 72px;
-
-          .inputWrapper {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            padding-top: 20px;
-            padding-right: 24px;
-            padding-bottom: 20px;
-            padding-left: 55px;
-            font-size: 1rem;
-            font-weight: 300;
-            line-height: 1.6;
-            letter-spacing: -0.018em;
-            background-color: #ffffff;
-            border-radius: 42px;
-
-            .searchInput {
-              flex: 1;
-              min-width: 0;
-              font-size: 1rem;
-              background-color: transparent;
-              border: 0;
-            }
-          }
-
-          .searchTextbox {
-            position: absolute;
-            right: 0;
-            width: 100px;
-            height: 100%;
-            padding: 18px 32px;
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.6;
-            color: #ffffff;
-            letter-spacing: -0.018em;
-            cursor: pointer;
-            background-color: #007be9;
-            border-width: 0;
-            border-top-right-radius: 42px;
-            border-bottom-right-radius: 42px;
-          }
-        }
+      .searchInput {
+        min-width: 0;
+        font-size: 1rem;
+        background-color: transparent;
+        border: 0;
       }
+    }
+
+    .searchTextbox {
+      position: absolute;
+      right: 0;
+      width: 100px;
+      height: 100%;
+      padding: 18px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: colors.$WHITE;
+      letter-spacing: -0.018em;
+      cursor: pointer;
+      background-color: #007be9;
+      border-width: 0;
+      border-top-right-radius: 42px;
+      border-bottom-right-radius: 42px;
     }
   }
 }
+//     }
+//   }
+// }

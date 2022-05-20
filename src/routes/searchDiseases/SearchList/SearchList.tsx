@@ -14,6 +14,7 @@ interface Props {
 
 const SearchList = ({ searchList }: Props) => {
   const dispatch = useDispatch();
+
   const [index, setIndex] = useState<number>(-1);
 
   const handleKeyPress = (event: { key: string }) => {

@@ -21,10 +21,6 @@ const SearchList = ({ isLoading }: Props) => {
     setIndex(-1);
   }, [searchResult]);
 
-  useEffect(() => {
-    console.log(index);
-  }, [index]);
-
   const handleKeyPress = (event: { key: string }) => {
     if (!searchResult.items.length) return;
 

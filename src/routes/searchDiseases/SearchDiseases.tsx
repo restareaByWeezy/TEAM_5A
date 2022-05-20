@@ -1,63 +1,75 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
-import { debounce } from 'lodash'
+import { ChangeEvent, FormEvent, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { isRender, isShow } from 'states/condition/searchListRender';
+import { getSearchValue, setSearchValue } from 'states/value/searchValue';
+import { useQuery } from 'react-query';
+import { getSearchDiseasesAPI } from 'services/search';
 
-import { getSearchDiseasesApi } from 'services/search'
+import { debounce } from 'lodash';
 
-import './SearchDiseases.scss'
-import SearchList from './SearchList/SearchList'
+import SearchList from './SearchList/SearchList';
+import styles from './searchDiseases.module.scss';
 
 const SearchDiseases = () => {
-  const [inputValue, setInputValue] = useState<string>('')
-  const [isOpen, setIsOpen] = useState(false)
+  const dispatch = useDispatch();
+  const searchValueState = useSelector(getSearchValue);
+  const isSearchList = useSelector(isRender);
 
   const { data } = useQuery(
-    ['getDiseaseNameApi', inputValue],
+    ['getDiseaseNameAPI', searchValueState],
     () =>
-      getSearchDiseasesApi({ searchText: inputValue }).then((res) => {
+      getSearchDiseasesAPI({ searchText: searchValueState }).then((res) => {
+        const resBody = res.data.response.body;
         // eslint-disable-next-line no-console
-        console.count('API Call')
-        if (res.data.response.body.totalCount > 0) setIsOpen(true)
-        return res.data.response.body
+        console.count('API CALl');
+        if (resBody.totalCount > 0) dispatch(isShow());
+        return resBody;
       }),
     {
-      enabled: !!inputValue,
+      enabled: !!searchValueState,
       staleTime: 2 * 60 * 1000,
     }
-  )
+  );
+  const searchList = data?.items.item;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-  }
+    const { value } = e.target;
+    dispatch(setSearchValue(value));
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
-  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), [])
+  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
   return (
-    <div className='bg'>
-      <div className='bg-center'>
-        <div className='container'>
-          <div className='search-container'>
+    <div className={styles.bg}>
+      <div className={styles.bgCenter}>
+        <div className={styles.container}>
+          <div className={styles.searchContainer}>
             <h1>
-              <div>국내 모든 임상시험 검색하고</div> 온라인으로 참여하기
+              <p>국내 모든 임상시험 검색하고</p> 온라인으로 참여하기
             </h1>
-            <form className='search-wrapper' onSubmit={handleSubmit}>
-              <div className='input-wrapper'>
-                <input type='text' placeholder='질환명을 입력해 주세요.' onChange={debouncedChangeHandler} />
+            <form className={styles.searchWrapper} onSubmit={handleSubmit}>
+              <div className={styles.inputWrapper}>
+                <input
+                  className={styles.searchInput}
+                  type='text'
+                  placeholder='질환명을 입력해 주세요.'
+                  onChange={debouncedChangeHandler}
+                />
               </div>
-              <button type='submit' className='search-textbox'>
+              <button className={styles.searchTextbox} type='submit'>
                 검색
               </button>
             </form>
-            {isOpen && <SearchList searchList={data?.items.item} isOpen={isOpen} setIsOpen={setIsOpen} />}
+            {isSearchList && <SearchList searchList={searchList} />}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchDiseases
+export default SearchDiseases;

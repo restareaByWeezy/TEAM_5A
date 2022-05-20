@@ -1,17 +1,8 @@
 import { escapeRegExp } from 'lodash'
 
-interface Props {
-  inputValue: string
-}
-
 // 인덱스 시그니처
 interface ObjType {
   [ch: string]: number
-}
-
-const FuzzyString = ({ inputValue }: Props) => {
-  const pattern = inputValue.split('').map(ch2pattern).join('.*?')
-  return new RegExp(pattern)
 }
 
 const ch2pattern = (ch: string) => {
@@ -49,11 +40,13 @@ const ch2pattern = (ch: string) => {
   // escapeRegExp는 lodash에서 가져옴
   return escapeRegExp(ch)
 }
-// FuzzyString('ㅋㅁㅅ').test('크리스마스') // true
-// createFuzzyMatcher('ㅋㅁㅅ').test('크리스') // false
-// createFuzzyMatcher('고라').test('골라') // true
-// createFuzzyMatcher('고라').test('가라') // false
-// createFuzzyMatcher('군ㄱㅁ').test('군고구마') // true
-// createFuzzyMatcher('군ㄱㅁ').test('궁고구마') // false
 
+function FuzzyString(inputValue: string) {
+  const pattern = inputValue
+    .split('')
+    .map(ch2pattern)
+    .map((prev) => `(${prev})`)
+    .join('.*?')
+  return new RegExp(pattern, 'i')
+}
 export default FuzzyString

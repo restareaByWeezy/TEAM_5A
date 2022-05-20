@@ -52,23 +52,27 @@ const SearchList = ({ searchList, setSearchKey, isLoading }: Props) => {
   const loadSearchList = (() => {
     if (isLoading) return <p className={styles.title}>데이터 로딩 중</p>
     if (searchList.length === 0) return <p className={styles.title}>검색 결과가 없습니다.</p>
-    return searchList.map((item, idx) => (
-      <li
-        className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
-        key={item.sickCd}
-        data-idx={idx}
-        onMouseEnter={handleMouseEnter}
-      >
-        <SearchIcon className={styles.icon} />
-        <span>{item.sickNm}</span>
-      </li>
-    ))
+    return (
+      <ul>
+        {searchList.map((item, idx) => (
+          <li
+            className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
+            key={item.sickCd}
+            data-idx={idx}
+            onMouseEnter={handleMouseEnter}
+          >
+            <SearchIcon className={styles.icon} />
+            <span>{item.sickNm}</span>
+          </li>
+        ))}
+      </ul>
+    )
   })()
 
   return (
     <div className={styles.list}>
       <p className={styles.title}>{title}</p>
-      <ul>{loadSearchList}</ul>
+      {loadSearchList}
     </div>
   )
 }

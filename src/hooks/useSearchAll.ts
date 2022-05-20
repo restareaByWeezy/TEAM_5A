@@ -1,26 +1,46 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useQuery } from 'react-query'
+
+import { useAppSelector } from 'hooks'
 import { getAllDiseasesApi } from 'services/search'
+import { setAllItems } from 'states/allItems'
+import { increment } from 'states/apiCount'
 
 import type { IItem } from 'types/search'
 
 export const useSearchAll = () => {
-  const [count, increaseCount] = useReducer((prev) => prev + 1, 0)
   const [searchKey, setSearchKey] = useState('')
   const [searchResult, setSearchResult] = useState<IItem[]>([])
-  const { data, ...res } = useQuery(['getDiseases', 'all'], () => getAllDiseasesApi(), {
-    staleTime: 2 * 60 * 1000,
-  })
+  const { data, ...res } = useQuery(
+    ['getDiseases', 'all'],
+    () => {
+      dispatch(increment())
+      return getAllDiseasesApi()
+    },
+    {
+      staleTime: 2 * 60 * 1000,
+    }
+  )
+
+  const dispatch = useDispatch()
+  const allItems = useAppSelector((state) => state.allItems)
+  const apiCount = useAppSelector((state) => state.apiCount)
 
   useEffect(() => {
-    console.log(`API request counts: ${count + 1}`)
-    increaseCount()
+    if (apiCount.value <= 0) return
+    console.log(`API request counts: ${apiCount.value}`)
+  }, [apiCount.value])
+
+  useEffect(() => {
+    if (!data) return
+    dispatch(setAllItems(data))
   }, [data])
 
   useEffect(() => {
-    if (data === undefined) return
-    setSearchResult(data.filter(({ sickNm }) => sickNm.toLowerCase().includes(searchKey)))
-  }, [searchKey, data])
+    const result = searchKey ? allItems.items.filter(({ sickNm }) => sickNm.toLowerCase().includes(searchKey)) : []
+    setSearchResult(result)
+  }, [searchKey, allItems])
 
   return { searchKey, setSearchKey, searchResult, ...res }
 }

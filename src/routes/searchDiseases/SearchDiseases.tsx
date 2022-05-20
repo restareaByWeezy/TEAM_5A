@@ -43,20 +43,6 @@ const SearchDiseases = () => {
 
   const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
-  // const aalist = ['안구<mark>암</mark>', '안구<mark>암</mark>', '안구<mark>암</mark>', '안구<mark>암</mark>'];
-  // console.log(aalist.toString().replace(/"/g, ''));
-  // const ablist = [...aalist];
-  // const aclist = [...aalist];
-  // const test = aclist.map((item) => {});
-
-  // const listTest = ablist.map((item, idx) => {
-  //   const key = `test-${idx}`;
-  //   const test = item.toString().replace(/"/g, '');
-
-  //   return <li key={key}>{test}</li>;
-  // });
-  // console.log(listTest);
-
   return (
     <div className={styles.bg}>
       <div className={styles.bgCenter}>
@@ -64,7 +50,6 @@ const SearchDiseases = () => {
           <div className={styles.searchContainer}>
             <h1>
               <p>국내 모든 임상시험 검색하고</p> 온라인으로 참여하기
-              {/* {listTest} */}
             </h1>
             <form className={styles.searchWrapper} onSubmit={handleSubmit}>
               <div className={styles.inputWrapper}>

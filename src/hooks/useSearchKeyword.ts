@@ -34,7 +34,7 @@ export const useSearchKeyword = () => {
 
   useEffect(() => {
     if (!data) return;
-    setSearchResultList(data);
+    dispatch(setSearchResultList(data));
   }, [searchValue, data]);
 
   return { data, ...res };

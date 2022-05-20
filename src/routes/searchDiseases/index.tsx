@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { debounce } from 'lodash';
 
+import { useSearchKeyword } from 'hooks/useSearchKeyword';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
@@ -12,6 +13,7 @@ const SearchDiseases = () => {
   // TODO: managed state
   // const [inputValue, setInputValue] = useState('');
   const { isLoading } = useSearchAll();
+  // const { isLoading } = useSearchKeyword();
 
   const searchValue = useAppSelector(getSearchValue);
   const dispatch = useAppDispatch();

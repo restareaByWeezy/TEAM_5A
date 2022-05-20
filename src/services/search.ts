@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { axios } from 'hooks/worker';
 
 const SEARCH_DISEASES_BASE_URL = '/getDissNameCodeList?sickType=1&medTp=2&diseaseType=SICK_NM';
@@ -15,7 +16,10 @@ export const getSearchDiseasesAPI = async (params: Params) => {
     },
   });
 
-  return data.response.body?.items?.item;
+  const item = data.response.body?.items?.item;
+  if (item === undefined) return;
+  if (item instanceof Array) return item;
+  return [item];
 };
 
 export const getAllDiseasesApi = async () => {
@@ -27,5 +31,8 @@ export const getAllDiseasesApi = async () => {
     },
   });
 
-  return data.response.body?.items?.item;
+  const item = data.response.body?.items?.item;
+  if (item === undefined) return;
+  if (item instanceof Array) return item;
+  return [item];
 };

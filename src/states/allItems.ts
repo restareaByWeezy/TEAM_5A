@@ -1,24 +1,23 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { IItem } from 'types/search'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: AllItems = {
   items: [],
-}
+};
 
 const systemSlice = createSlice({
   name: 'allItems',
   initialState,
   reducers: {
     setAllItems(state: AllItems, action: PayloadAction<IItem[]>) {
-      state.items = action.payload
+      state.items = action.payload;
     },
   },
-})
+});
 
 export interface AllItems {
-  items: IItem[]
+  items: IItem[];
 }
 
-export default systemSlice.reducer
+export default systemSlice.reducer;
 
-export const { setAllItems } = systemSlice.actions
+export const { setAllItems } = systemSlice.actions;

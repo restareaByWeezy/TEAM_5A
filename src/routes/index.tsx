@@ -1,18 +1,18 @@
-import { useMount } from 'react-use'
-import { Routes, Route } from 'react-router-dom'
-import styles from './Routes.module.scss'
+import { useMount } from 'react-use';
+import { Routes, Route } from 'react-router-dom';
+import styles from './Routes.module.scss';
 
-import { useAppSelector } from 'hooks'
-import { getTheme } from 'states/system'
+import { useAppSelector } from 'hooks';
+import { getTheme } from 'states/system';
 
-import SearchDiseases from './SearchDiseases'
+import SearchDiseases from './SearchDiseases';
 
 const App = () => {
-  const theme = useAppSelector(getTheme)
+  const theme = useAppSelector(getTheme);
 
   useMount(() => {
-    document.documentElement.setAttribute('color-theme', theme)
-  })
+    document.documentElement.setAttribute('color-theme', theme);
+  });
 
   return (
     <div className={styles.appWrapper}>
@@ -23,7 +23,7 @@ const App = () => {
         </Routes>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,10 +1,9 @@
-import { axios } from 'hooks/worker'
-import { IDiseaseAPIRes } from 'types/search'
+import { axios } from 'hooks/worker';
 
-const SEARCH_DISEASES_BASE_URL = '/getDissNameCodeList?sickType=1&medTp=2&diseaseType=SICK_NM'
+const SEARCH_DISEASES_BASE_URL = '/getDissNameCodeList?sickType=1&medTp=2&diseaseType=SICK_NM';
 
 interface Params {
-  searchText: string
+  searchText: string;
 }
 
 export const getSearchDiseasesApi = (params: Params) =>
@@ -14,7 +13,7 @@ export const getSearchDiseasesApi = (params: Params) =>
       ServiceKey: process.env.REACT_APP_DISEASES_ID,
       _type: 'json',
     },
-  })
+  });
 
 export const getAllDiseasesApi = async () => {
   const { data } = await axios.get<IDiseaseAPIRes>(`${SEARCH_DISEASES_BASE_URL}`, {
@@ -23,7 +22,7 @@ export const getAllDiseasesApi = async () => {
       serviceKey: process.env.REACT_APP_DISEASES_ID,
       numOfRows: 2000,
     },
-  })
+  });
 
-  return data.response.body?.items?.item
-}
+  return data.response.body?.items?.item;
+};

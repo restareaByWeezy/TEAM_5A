@@ -1,23 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: APICount = {
   value: 0,
-}
+};
 
 const systemSlice = createSlice({
   name: 'apiCount',
   initialState,
   reducers: {
     increment(state: APICount) {
-      state.value += 1
+      state.value += 1;
     },
   },
-})
+});
 
 export interface APICount {
-  value: number
+  value: number;
 }
 
-export default systemSlice.reducer
+export default systemSlice.reducer;
 
-export const { increment } = systemSlice.actions
+export const { increment } = systemSlice.actions;

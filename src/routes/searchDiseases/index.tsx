@@ -1,31 +1,31 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
-import { debounce } from 'lodash'
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import { debounce } from 'lodash';
 
-import { useSearchAll } from 'hooks/useSearchAll'
+import { useSearchAll } from 'hooks/useSearchAll';
 // import { getSearchDiseasesApi } from 'services/search'
 
-import './SearchDiseases.scss'
-import SearchList from 'components/SearchList'
-import FuzzyString from 'components/SearchList/Fuzzystring'
+import './SearchDiseases.scss';
+import SearchList from 'components/SearchList';
+import FuzzyString from 'components/Fuzzystring';
 
 const SearchDiseases = () => {
-  const [inputValue, setInputValue] = useState('')
-  const { searchKey, setSearchKey, searchResult, isLoading } = useSearchAll()
+  const [inputValue, setInputValue] = useState('');
+  const { searchKey, setSearchKey, searchResult, isLoading } = useSearchAll();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
+    e.preventDefault();
+  };
 
   // TODO
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
+    const { value } = e.target;
 
-    setInputValue(value)
-    setSearchKey(value)
-  }
+    setInputValue(value);
+    setSearchKey(value);
+  };
 
-  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), [])
+  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
   //
 
@@ -52,7 +52,7 @@ const SearchDiseases = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchDiseases
+export default SearchDiseases;

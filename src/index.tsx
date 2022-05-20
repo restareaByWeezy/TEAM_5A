@@ -23,7 +23,6 @@ root.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18n}>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
         <Provider store={store}>
           <RecoilRoot>
             <BrowserRouter>

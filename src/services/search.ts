@@ -1,5 +1,4 @@
 import { axios } from 'hooks/worker'
-import { parseMutationArgs } from 'react-query/types/core/utils'
 import { IDiseaseAPIRes } from 'types/search'
 
 const SEARCH_DISEASES_BASE_URL = '/getDissNameCodeList?sickType=1&medTp=2&diseaseType=SICK_NM'

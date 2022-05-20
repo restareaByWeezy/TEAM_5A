@@ -1,29 +1,29 @@
-export interface IHeader {
+interface IHeader {
   resultCode: string;
   resultMsg: string;
 }
 
-export interface IItem {
+interface IItem {
   sickCd: string;
   sickNm: string;
 }
 
-export interface IItems {
+interface IItems {
   item: IItem[];
 }
 
-export interface IBody {
+interface IBody {
   items: IItems;
   numOfRows: number;
   pageNo: number;
   totalCount: number;
 }
 
-export interface IResponse {
+interface IResponse {
   header: IHeader;
   body: IBody;
 }
 
-export interface IDiseaseAPIRes {
+interface IDiseaseAPIRes {
   response: IResponse;
 }

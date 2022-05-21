@@ -30,30 +30,28 @@ const SearchDiseases = () => {
   const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
   return (
-    <div className={styles.bg}>
-      <div className={styles.bgCenter}>
-        <div className={styles.container}>
-          <div className={styles.searchContainer}>
-            <h1>
-              <p>국내 모든 임상시험 검색하고</p> 온라인으로 참여하기
-            </h1>
-            <form className={styles.searchWrapper} onSubmit={handleSubmit}>
-              <div className={styles.inputWrapper}>
-                <input
-                  className={styles.searchInput}
-                  type="text"
-                  placeholder="질환명을 입력해 주세요."
-                  onChange={debouncedChangeHandler}
-                />
-              </div>
-              <button className={styles.searchTextbox} type="submit">
-                검색
-              </button>
-            </form>
-            {(isLoading || searchValue) && <SearchList isLoading={isLoading} />}
-          </div>
-        </div>
-      </div>
+    <div className={styles.searchContainer}>
+      <header>
+        <h2 className={styles.title}>
+          국내 모든 임상시험 검색하고
+          <br />
+          온라인으로 참여하기
+        </h2>
+      </header>
+      <main>
+        <form className={styles.searchWrapper} onSubmit={handleSubmit}>
+          <input
+            className={styles.searchInput}
+            type="text"
+            placeholder="질환명을 입력해 주세요."
+            onChange={debouncedChangeHandler}
+          />
+          <button className={styles.searchButton} type="submit">
+            검색
+          </button>
+        </form>
+        {(isLoading || searchValue) && <SearchList isLoading={isLoading} />}
+      </main>
     </div>
   );
 };

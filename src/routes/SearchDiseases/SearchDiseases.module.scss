@@ -4,88 +4,59 @@
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/position';
 
-.bg {
-  display: flex;
+.searchContainer {
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  width: 650px;
+  @include flexbox.flexbox(center, center);
 
-  .bgCenter {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+  header {
     width: 100%;
-    height: 80%;
-    background-color: colors.$BLUE1;
+    margin-bottom: 20px;
 
-    .container {
+    .title {
+      font-size: 2em;
+      font-weight: bold;
+      line-height: 1.6;
+      text-align: center;
+      letter-spacing: -0.05em;
+      user-select: none;
+    }
+  }
+
+  main {
+    width: 100%;
+
+    .searchWrapper {
+      position: relative;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       width: 100%;
-      padding-top: 70px;
 
-      .searchContainer {
-        width: 700px;
+      .searchInput {
+        width: 85%;
+        padding: 20px 0 20px 48px;
+        font-weight: bold;
+        line-height: 1.6;
+        background-color: colors.$WHITE;
+        border-top-left-radius: 42px;
+        border-bottom-left-radius: 42px;
 
-        h1 {
-          margin-bottom: 20px;
-          font-size: 2.125rem;
-          font-weight: 700;
-          line-height: 1.6;
-          text-align: center;
-          letter-spacing: -0.018em;
+        &::placeholder {
+          color: colors.$GRAYA;
         }
+      }
 
-        .searchWrapper {
-          position: relative;
-          display: flex;
-          flex-direction: row;
-          height: 72px;
-
-          .inputWrapper {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            padding: 20px 24px 20px 55px;
-            font-size: 1rem;
-            font-weight: 300;
-            line-height: 1.6;
-            letter-spacing: -0.018em;
-            background-color: #ffffff;
-            border-radius: 42px;
-
-            .searchInput {
-              flex: 1;
-              min-width: 0;
-              font-size: 1rem;
-              background-color: transparent;
-              border: 0;
-            }
-          }
-
-          .searchTextbox {
-            position: absolute;
-            right: 0;
-            width: 100px;
-            height: 100%;
-            padding: 18px 32px;
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.6;
-            color: colors.$WHITE;
-            letter-spacing: -0.018em;
-            cursor: pointer;
-            background-color: colors.$BLUE5;
-            border-width: 0;
-            border-top-right-radius: 42px;
-            border-bottom-right-radius: 42px;
-          }
-        }
+      .searchButton {
+        width: 15%;
+        font-size: 1.1em;
+        font-weight: bold;
+        line-height: 1.6;
+        color: colors.$WHITE;
+        letter-spacing: -0.05em;
+        cursor: pointer;
+        background-color: #007be9;
+        border: none;
+        border-top-right-radius: 42px;
+        border-bottom-right-radius: 42px;
       }
     }
   }

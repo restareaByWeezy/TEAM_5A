@@ -45,7 +45,9 @@ function FuzzyString(inputValue: string) {
   const pattern = inputValue
     .split('')
     .map(ch2pattern)
-    .map((prev) => `(${prev})`)
+    .map((prev) => {
+      return `(${prev})`;
+    })
     .join('.*?');
   return new RegExp(pattern, 'i');
 }

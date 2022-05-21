@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
 import SearchList from 'components/SearchList';
 
-import styles from './SearchDiseases.module.scss';
+import styles from './searchDiseases.module.scss';
 
 const SearchDiseases = () => {
   // TODO: managed state
@@ -17,38 +17,6 @@ const SearchDiseases = () => {
 
   const searchValue = useAppSelector(getSearchValue);
   const dispatch = useAppDispatch();
-
-  // const loadDieasesList = (input: string) => {
-  //   if (!input) {
-  //     setIsOpen(false)
-  //     return
-  //   }
-  //   if (testdata.response.body.totalCount > 0) setIsOpen(true)
-  //   const regex = FuzzyString(input)
-  //   const diseasesData = uniqBy(testdata.response.body.items.item, 'sickCd')
-  //   const resultData = diseasesData
-  //     .filter((row) => {
-  //       return regex.test(row.sickNm)
-  //     })
-  //     .map((row) => {
-  //       return {
-  //         sickCd: row.sickCd,
-  //         sickNm: row.sickNm.replace(regex, (match, ...groups) => {
-  //           const letters = groups.slice(0, groups.length - 2)
-  //           let lastIndex = 0
-  //           const highlighted = []
-  //           for (let i = 0, l = letters.length; i < l; i += 1) {
-  //             const idx = match.indexOf(letters[i], lastIndex)
-  //             highlighted.push(match.substring(lastIndex, idx))
-  //             highlighted.push(`<mark>${letters[i]}</mark>`)
-  //             lastIndex = idx + 1
-  //           }
-  //           return highlighted.join('')
-  //         }),
-  //       }
-  //     })
-  //   setStringList(resultData.slice(0, 8))
-  // }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

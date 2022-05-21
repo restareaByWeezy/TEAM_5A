@@ -25,8 +25,8 @@ export const getAllDiseasesApi = async () => {
   const { data } = await axios.get<IDiseaseAPIRes>(`${SEARCH_DISEASES_BASE_URL}`, {
     params: {
       _type: 'json',
-      serviceKey: process.env.REACT_APP_DISEASES_ID,
       numOfRows: 2000,
+      ServiceKey: process.env.REACT_APP_DISEASES_ID,
     },
   });
 

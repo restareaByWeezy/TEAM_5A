@@ -16,7 +16,6 @@ const SearchList = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
 
   const searchResult = useAppSelector((state) => state.searchResultList);
-
   useEffect(() => {
     setIndex(-1);
   }, [searchResult]);
@@ -67,7 +66,13 @@ const SearchList = ({ isLoading }: Props) => {
             onMouseEnter={handleMouseEnter}
           >
             <SearchIcon className={styles.icon} />
-            <span>{item.sickNm}</span>
+            {/* <span>{item.sickNm}</span> */}
+            <span>
+              {item.sickNm.split(',').map((test, i) => {
+                const key = `${item.sickCd}-${i}`;
+                return test[0] === '|' ? <mark key={key}>{test.split('|')[1]}</mark> : test;
+              })}
+            </span>
           </li>
         ))}
       </ul>

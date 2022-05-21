@@ -6,6 +6,8 @@ interface IHeader {
 interface IItem {
   sickCd: string;
   sickNm: string;
+  originSickNm: string;
+  longestDistance: number;
 }
 
 interface IItems {

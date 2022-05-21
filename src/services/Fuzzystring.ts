@@ -1,24 +1,10 @@
-import { escapeRegExp } from 'lodash';
+import { escapeRegExp, uniqBy } from 'lodash';
 
-// 인덱스 시그니처
 interface ObjType {
   [ch: string]: number;
 }
 
 const ch2pattern = (ch: string) => {
-  const offset = 44032; /* '가'의 코드 */
-  // 한국어 음절
-  if (/[가-힣]/.test(ch)) {
-    const chCode = ch.charCodeAt(0) - offset;
-    // 종성이 있으면 문자 그대로를 찾는다.
-    if (chCode % 28 > 0) {
-      return ch;
-    }
-    const begin = Math.floor(chCode / 28) * 28 + offset;
-    const end = begin + 27;
-    return `[\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
-  }
-  // 한글 자음
   if (/[ㄱ-ㅎ]/.test(ch)) {
     const con2syl: ObjType = {
       ㄱ: '가'.charCodeAt(0),
@@ -32,23 +18,60 @@ const ch2pattern = (ch: string) => {
       ㅃ: '빠'.charCodeAt(0),
       ㅅ: '사'.charCodeAt(0),
     };
-    const begin = con2syl[ch] || (ch.charCodeAt(0) - 12613) /* 'ㅅ'의 코드 */ * 588 + con2syl['ㅅ'];
+    const begin = con2syl[ch] || (ch.charCodeAt(0) - 12613) * 588 + con2syl['ㅅ'];
     const end = begin + 587;
     return `[${ch}\\u${begin.toString(16)}-\\u${end.toString(16)}]`;
   }
-  // 그 외엔 그대로 내보냄
-  // escapeRegExp는 lodash에서 가져옴
   return escapeRegExp(ch);
 };
 
-function FuzzyString(inputValue: string) {
+const FuzzyString = (inputValue: string) => {
   const pattern = inputValue
     .split('')
     .map(ch2pattern)
-    .map((prev) => {
-      return `(${prev})`;
-    })
+    .map((prev) => `(${prev})`)
     .join('.*?');
   return new RegExp(pattern, 'i');
-}
-export default FuzzyString;
+};
+
+export const fuzzyFilter = (dataList: IItem[], searchValue: string): IItem[] => {
+  const regex = FuzzyString(searchValue);
+  const diseasesData = uniqBy(dataList, 'sickCd');
+  const resultData = diseasesData
+    .filter((row) => {
+      return regex.test(row.sickNm);
+    })
+    .map((row) => {
+      let longestDistance = 0;
+      const sickName = row.sickNm.replace(regex, (match, ...groups) => {
+        const letters = groups.slice(0, groups.length - 2);
+        let lastIndex = 0;
+        const highlighted = [];
+        for (let i = 0, l = letters.length; i < l; i += 1) {
+          const idx = match.indexOf(letters[i], lastIndex);
+          highlighted.push(match.substring(lastIndex, idx));
+          highlighted.push(',');
+          highlighted.push(`|${letters[i]}|`);
+          highlighted.push(',');
+          if (lastIndex > 0) {
+            longestDistance = Math.max(longestDistance, idx - lastIndex);
+          }
+          lastIndex = idx + 1;
+        }
+        return highlighted.join('');
+      });
+
+      return {
+        sickCd: row.sickCd,
+        sickNm: sickName,
+        originSickNm: row.sickNm,
+        longestDistance,
+      };
+    });
+
+  resultData.sort((a, b) => {
+    return a.longestDistance - b.longestDistance;
+  });
+
+  return resultData.slice(0, 8);
+};

@@ -67,7 +67,13 @@ const SearchList = ({ isLoading }: Props) => {
             onMouseEnter={handleMouseEnter}
           >
             <SearchIcon className={styles.icon} />
-            <span>{item.sickNm}</span>
+            {/* <span>{item.sickNm}</span> */}
+            <span>
+              {item.sickNm.split(',').map((letter, i) => {
+                const key = `${item.sickCd}-${i}`;
+                return letter[0] === '|' ? <mark key={key}>{letter.split('|')[1]}</mark> : letter;
+              })}
+            </span>
           </li>
         ))}
       </ul>

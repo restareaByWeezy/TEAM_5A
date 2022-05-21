@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { debounce } from 'lodash';
 
-import { useSearchKeyword } from 'hooks/useSearchKeyword';
+// import { useSearchKeyword } from 'hooks/useSearchKeyword';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
@@ -41,12 +41,12 @@ const SearchDiseases = () => {
               <div className={styles.inputWrapper}>
                 <input
                   className={styles.searchInput}
-                  type='text'
-                  placeholder='질환명을 입력해 주세요.'
+                  type="text"
+                  placeholder="질환명을 입력해 주세요."
                   onChange={debouncedChangeHandler}
                 />
               </div>
-              <button className={styles.searchTextbox} type='submit'>
+              <button className={styles.searchTextbox} type="submit">
                 검색
               </button>
             </form>

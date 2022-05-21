@@ -8,8 +8,8 @@ const App = () => {
     <div className={styles.appWrapper}>
       <div className={styles.app}>
         <Routes>
-          <Route path='/' element={<SearchDiseases />} />
-          <Route path='*' element={<div>404</div>} />
+          <Route path="/" element={<SearchDiseases />} />
+          <Route path="*" element={<div>404</div>} />
         </Routes>
       </div>
     </div>

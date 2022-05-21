@@ -1,46 +1,87 @@
-# Getting Started with Create React App
+# 검색어 추천이 있는 검색창 만들기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 목차
 
-## Available Scripts
+## Overview
+원티드 프리온보딩 코스 5-A조 휴먼스케이프 과제 프로젝트입니다. <br />
+[한국임상정보](https://clinicaltrialskorea.com/)의 검색창을 클론 코딩하였고, [공공데이터포털 오픈 API](https://www.data.go.kr/data/15001675/openapi.do)의 데이터를 활용했습니다.
 
-In the project directory, you can run:
+## 실행 화면
 
-### `yarn start`
+## 배포 페이지
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Directory
+```tree
+src/
+├── index.tsx
+├── assets
+│   └── svgs
+├── components
+│   ├── MobileSearchList
+│   │   ├── MobileSearchList.module.scss
+│   │   └── index.tsx
+│   └── SearchList
+│       ├── SearchList.module.scss
+│       └── index.tsx
+├── hooks
+│   ├── index.ts
+│   ├── useAppDispatch.ts
+│   ├── useAppSelector.ts
+│   ├── useSearchAll.ts
+│   └── useSearchKeyword.ts
+├── pages
+│   ├── index.tsx
+│   ├── Pages.module.scss
+│   ├── MobileSearchDiseases
+│   │   ├── index.tsx
+│   │   └── MobileSearchDiseases.module.scss
+│   └── SearchDiseases
+│       ├── index.tsx
+│       └── SearchDiseases.module.scss
+├── services
+│   ├── fuzzyString.ts
+│   └── search.ts
+├── states
+│   ├── index.ts
+│   ├── allItems.ts
+│   ├── apiCount.ts
+│   ├── searchResultList.ts
+│   └── searchValue.ts
+├── styles
+│   ├── base
+│   │   ├── _fonts.scss
+│   │   ├── _more.scss
+│   │   └── _reset.scss
+│   ├── constants
+│   │   ├── _colors.scss
+│   │   ├── _levels.scss
+│   │   └── _sizes.scss
+│   ├── index.js
+│   ├── index.scss
+│   └── mixins
+│       ├── _animation.scss
+│       ├── _flexbox.scss
+│       └── _position.scss
+└── types
+    ├── react-app-env.d.ts
+    └── search.d.ts
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 주요 기술 스택
+* Typescript
+* React
+* Redux
+* React Query
 
-### `yarn test`
+## 전역 상태 관리
+* 검색 키워드(`searchValue`): 사용자 입력하는 텍스트를 실시간으로 반영합니다.
+* 검색 결과(`searchResult`): 데이터가 업데이트될 때마다 상태를 변경합니다.
+* API Call 횟수(`apiCount`): API 요청이 있을 때마다 값이 하나씩 늘어납니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Data Fetching
+* Axios와 React Query를 활용했습니다.
+* 아래와 같이 두 가지 정책을 고려했습니다.
+  * 모든 데이터를 한 번에 요청해서 불러오는 방법
+  * 키워드별로 개별 요청하는 방법
+* 각각의 방법을 `useSearchAll`, `useSearchKeyword` 커스텀 훅으로 구현했습니다. 두 훅 모두 불러온 데이터를 fuzzy string으로 검색하고, `serachResult` 상태에 업데이트합니다.
+* API 응답에 평균 5초 이상이 걸린다는 특징에 따라 데이터를 한 번에 불러온 뒤 캐싱된 데이터를 활용하는 방법을 선택했습니다. 첫 로딩 시간에 약간의 손해가 있었지만, 요청 및 응답 자체에 걸리는 시간을 고려할 때 최적의 방법이라 판단했습니다.

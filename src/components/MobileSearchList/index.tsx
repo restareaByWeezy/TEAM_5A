@@ -4,9 +4,10 @@ import cx from 'classnames';
 import { BackIcon, CloseIcon, SearchIcon } from 'assets/svgs';
 
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { getSearchValue, setSearchValue } from 'states/value/searchValue';
+import { getSearchValue, setSearchValue } from 'states/searchValue';
 
 import styles from './MobileSearchList.module.scss';
+import { SEARCH_BASE_URL } from 'services/searchURL';
 
 interface Props {
   isLoading: boolean;
@@ -79,7 +80,7 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
       onMouseEnter={handleMouseEnter}
     >
       <SearchIcon className={styles.icon} />
-      <a className={styles.recommended} href={`https://clinicaltrialskorea.com/studies?condition=${item.originSickNm}`}>
+      <a className={styles.recommended} href={SEARCH_BASE_URL + item.originSickNm}>
         {item.sickNm.split(',').map((letter, i) => {
           const key = `${item.sickCd}-${i}`;
           return letter[0] === '|' ? <mark key={key}>{letter.split('|')[1]}</mark> : letter;
@@ -93,25 +94,27 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
       <p className={styles.title}>{title}</p>
       <div className={styles.listContainer}>
         <form className={styles.searchForm}>
-          <button type="button" className={styles.backIcon} onClick={handleShowList}>
-            <BackIcon />
-          </button>
-          <input
-            className={styles.mobileInput}
-            type="text"
-            placeholder="질환명을 입력해 주세요."
-            onChange={handleChange}
-            value={searchValue}
-          />
-          <button type="button" className={styles.closeIcon} onClick={handleErase}>
-            <CloseIcon />
-          </button>
-          <a className={styles.searchIcon} href={`https://clinicaltrialskorea.com/studies?condition=${searchValue}`}>
-            <SearchIcon />
-          </a>
+          <div className={styles.searchFormWrapper}>
+            <button type="button" className={styles.backIcon} onClick={handleShowList}>
+              <BackIcon />
+            </button>
+            <input
+              className={styles.mobileInput}
+              type="text"
+              placeholder="질환명을 입력해 주세요."
+              onChange={handleChange}
+              value={searchValue}
+            />
+            <button type="button" className={styles.closeIcon} onClick={handleErase}>
+              <CloseIcon />
+            </button>
+            <a className={styles.searchIcon} href={SEARCH_BASE_URL + searchValue}>
+              <SearchIcon />
+            </a>
+          </div>
+          {loaderAndResult}
+          {searchValue && <ul className={styles.mobilelistContainer}>{loadSearchList}</ul>}
         </form>
-        {loaderAndResult}
-        {searchValue && <ul className={styles.mobilelistContainer}>{loadSearchList}</ul>}
       </div>
     </div>
   );

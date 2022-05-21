@@ -1,21 +1,17 @@
-import { FormEvent, useState } from 'react';
-
+import { useState } from 'react';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector } from 'hooks';
-import { getSearchValue } from 'states/value/searchValue';
+import { getSearchValue } from 'states/searchValue';
+import MobileSearchList from 'components/MobileSearchList';
+
 import styles from './MobileSearchDiseases.module.scss';
 import { SearchIcon } from 'assets/svgs/index';
-import MobileSearchList from 'components/MobileSearchList/MobileSearchList';
 
 const MobileSearchDiseases = () => {
   const { isLoading } = useSearchAll();
   const searchValue = useAppSelector(getSearchValue);
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
 
   const handleShowList = () => {
     setIsOpen((prev) => !prev);

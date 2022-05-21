@@ -1,7 +1,6 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/constants/levels';
 @use '/src/styles/mixins/flexbox';
-@use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/position';
 
 .list {
@@ -23,6 +22,7 @@
 
   .listContainer {
     width: 100%;
+    padding-bottom: 20px;
 
     .listContent {
       position: relative;
@@ -30,18 +30,18 @@
       display: flex;
       width: 100%;
       height: 50px;
-      padding: 0 10px;
       line-height: 50px;
       cursor: pointer;
       user-select: none;
 
       .icon {
         width: 24px;
-        margin: 0 12px;
+        margin: 0 12px 0 22px;
         opacity: 0.6;
       }
 
       .recommended {
+        width: 100%;
         color: colors.$GRAY9;
       }
 

@@ -3,8 +3,8 @@ import { ChangeEvent, FormEvent } from 'react';
 // import { useSearchKeyword } from 'hooks/useSearchKeyword';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { getSearchValue, setSearchValue } from 'states/value/searchValue';
-import SearchList from 'components/SearchList/index';
+import { getSearchValue, setSearchValue } from 'states/searchValue';
+import SearchList from 'components/SearchList';
 
 import styles from './SearchDiseases.module.scss';
 import { SearchIcon } from 'assets/svgs';

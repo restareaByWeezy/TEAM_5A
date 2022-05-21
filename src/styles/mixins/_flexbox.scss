@@ -16,9 +16,3 @@ $FLEX_MAP: (
   align-items: _getFlexValue($ai);
   justify-content: _getFlexValue($jc);
 }
-
-@mixin inlineFlexbox($jc: center, $ai: center) {
-  display: inline-flex;
-  align-items: _getFlexValue($ai);
-  justify-content: _getFlexValue($jc);
-}

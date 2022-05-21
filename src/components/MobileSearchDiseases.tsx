@@ -34,6 +34,8 @@ const MobileSearchDisease = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
+  const placeHolder = searchValue.length > 0 ? searchValue : '질환명을 입력해 주세요.';
+
   return (
     <div className={styles.bg}>
       <div className={styles.bgCenter}>
@@ -43,17 +45,17 @@ const MobileSearchDisease = () => {
               국내 모든 임상시험 검색하고 <br /> 온라인으로 참여하기
             </div>
             <form className={styles.searchWrapper} onSubmit={handleSubmit}>
-              <div role='button' className={styles.inputWrapper} onClick={handleShowList}>
+              <div role='presentation' className={styles.inputWrapper} onClick={handleShowList}>
                 <input
                   className={styles.input}
                   type='text'
-                  placeholder='질환명을 입력해 주세요.'
+                  placeholder={placeHolder}
                   onChange={debouncedChangeHandler}
                 />
                 <SearchIcon className={styles.searchIcon} />
               </div>
             </form>
-            {isOpen && <MobileSearchList isLoading={isLoading} />}
+            {isOpen && <MobileSearchList setIsOpen={setIsOpen} isLoading={isLoading} />}
           </div>
         </div>
       </div>

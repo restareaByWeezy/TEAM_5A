@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
-import { SearchIcon } from 'assets/svgs';
+import { BackIcon, CloseIcon, SearchIcon } from 'assets/svgs';
 
 import styles from './MobileSearchList.module.scss';
 import { useSearchAll } from 'hooks/useSearchAll';
@@ -11,9 +11,10 @@ import { debounce } from 'lodash';
 
 interface Props {
   isLoading: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const MobileSearchList = ({ isLoading }: Props) => {
+const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
   const [index, setIndex] = useState(-1);
 
   const searchValue = useAppSelector(getSearchValue);
@@ -58,6 +59,10 @@ const MobileSearchList = ({ isLoading }: Props) => {
     setIndex(Number(e.currentTarget.dataset.idx));
   };
 
+  const handleShowList = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   // TODO 처음 키 두 번 입력됨
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
@@ -71,21 +76,24 @@ const MobileSearchList = ({ isLoading }: Props) => {
 
   const loadSearchList = (() => {
     if (isLoading) return <p className={styles.title}>데이터 로딩 중...</p>;
-    if (searchResult.items.length === 0) return <p className={styles.title}>검색 결과가 없습니다.</p>;
+    // if (searchResult.items.length === 0) return <p className={styles.title}>검색 결과가 없습니다.</p>;
 
     return (
       <div className={styles.container}>
         <form className={styles.searchWrapper} onSubmit={handleSubmit}>
           <div className={styles.inputWrapper}>
+            <BackIcon className={styles.backIcon} onClick={handleShowList} />
             <input
               className={styles.input}
               type='text'
               placeholder='질환명을 입력해 주세요.'
               onChange={debouncedChangeHandler}
             />
+            <CloseIcon className={styles.closeIcon} onClick={handleShowList} />
             <SearchIcon className={styles.searchIcon} />
           </div>
         </form>
+        {searchResult.items.length === 0 && <p className={styles.noResult}>검색 결과가 없습니다.</p>}
         <ul>
           {searchResult.items.map((item, idx) => (
             <li

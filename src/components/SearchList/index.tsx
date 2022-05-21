@@ -52,12 +52,6 @@ const SearchList = ({ isLoading }: Props) => {
     };
   });
 
-  // const first = searchResult.items.map((item) => {
-  //   return item.sickNm.split(',').map((test) => {
-  //     return test[0] === '|' ? <mark>{test.split('|')[1]}</mark> : test;
-  //   });
-  // });
-
   const title = searchResult.items.length === 0 || isLoading ? '' : '추천 검색어';
 
   const loadSearchList = (() => {

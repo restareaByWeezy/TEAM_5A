@@ -1,0 +1,11 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/flexbox';
+
+.app {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  padding-top: 10%;
+  background-color: colors.$BLUE1;
+  @include flexbox.flexbox(center, start);
+}

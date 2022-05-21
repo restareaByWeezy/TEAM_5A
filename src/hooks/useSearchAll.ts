@@ -7,6 +7,8 @@ import { getAllDiseasesApi } from 'services/search';
 import { getSearchValue } from 'states/value/searchValue';
 import { incrementCount } from 'states/apiCount';
 import { setSearchResultList } from 'states/searchResultList';
+import FuzzyString from 'services/Fuzzystring';
+import { uniqBy } from 'lodash';
 
 export const useSearchAll = () => {
   const searchValue = useAppSelector(getSearchValue);
@@ -33,8 +35,36 @@ export const useSearchAll = () => {
 
   useEffect(() => {
     if (!data) return;
-    const result = searchValue ? data.filter(({ sickNm }) => sickNm.toLowerCase().includes(searchValue)) : [];
-    dispatch(setSearchResultList(result));
+    const regex = FuzzyString(searchValue);
+    const diseasesData = uniqBy(data, 'sickCd');
+    const resultData = diseasesData
+      .filter((row) => {
+        return regex.test(row.sickNm);
+      })
+      .map((row) => {
+        return {
+          sickCd: row.sickCd,
+          sickNm: row.sickNm.replace(regex, (match, ...groups) => {
+            const letters = groups.slice(0, groups.length - 2);
+            let lastIndex = 0;
+            const highlighted = [];
+            for (let i = 0, l = letters.length; i < l; i += 1) {
+              const idx = match.indexOf(letters[i], lastIndex);
+              highlighted.push(match.substring(lastIndex, idx));
+              highlighted.push(',');
+              highlighted.push(`|${letters[i]}|`);
+              highlighted.push(',');
+              lastIndex = idx + 1;
+            }
+            return highlighted.join('');
+          }),
+        };
+      });
+
+    dispatch(setSearchResultList(resultData.slice(0, 8)));
+
+    // const result = searchValue ? data.filter(({ sickNm }) => sickNm.toLowerCase().includes(searchValue)) : [];
+    // dispatch(setSearchResultList(result));
   }, [searchValue, data, dispatch]);
 
   return { data, ...res };

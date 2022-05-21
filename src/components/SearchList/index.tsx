@@ -16,7 +16,6 @@ const SearchList = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
 
   const searchResult = useAppSelector((state) => state.searchResultList);
-
   useEffect(() => {
     setIndex(-1);
   }, [searchResult]);
@@ -43,7 +42,6 @@ const SearchList = ({ isLoading }: Props) => {
     setIndex(Number(e.currentTarget.dataset.idx));
   };
 
-  // TODO 처음 키 두 번 입력됨
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
 
@@ -67,7 +65,12 @@ const SearchList = ({ isLoading }: Props) => {
             onMouseEnter={handleMouseEnter}
           >
             <SearchIcon className={styles.icon} />
-            <span>{item.sickNm}</span>
+            <span>
+              {item.sickNm.split(',').map((letter, i) => {
+                const key = `${item.sickCd}-${i}`;
+                return letter[0] === '|' ? <mark key={key}>{letter.split('|')[1]}</mark> : letter;
+              })}
+            </span>
           </li>
         ))}
       </ul>

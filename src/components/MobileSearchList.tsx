@@ -83,8 +83,8 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
             <BackIcon className={styles.backIcon} onClick={handleShowList} />
             <input
               className={styles.input}
-              type='text'
-              placeholder='질환명을 입력해 주세요.'
+              type="text"
+              placeholder="질환명을 입력해 주세요."
               onChange={handleChange}
               value={searchValue}
             />

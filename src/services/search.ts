@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { axios } from 'hooks/worker';
+import axios from 'axios';
 
 const SEARCH_DISEASES_BASE_URL = 'https://humanscape-api-server-restareabyweezy.vercel.app/';
 

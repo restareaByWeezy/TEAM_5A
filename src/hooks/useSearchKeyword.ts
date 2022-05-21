@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 
-import { useAppSelector } from 'hooks';
 import { getSearchDiseasesAPI } from 'services/api';
 import { getSearchValue } from 'states/searchValue';
 import { incrementCount } from 'states/apiCount';
 import { setSearchResultList } from 'states/searchResultList';
 import { fuzzyFilter } from 'services/Fuzzystring';
+import { useAppSelector } from './useAppSelector';
 
 export const useSearchKeyword = () => {
   const searchValue = useAppSelector(getSearchValue);

@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent } from 'react';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/searchValue';
-import SearchList from 'components/SearchList/index';
+import SearchList from 'components/SearchList';
 
 import styles from './SearchDiseases.module.scss';
 

@@ -7,7 +7,7 @@ import { getAllDiseasesApi } from 'services/search';
 import { getSearchValue } from 'states/value/searchValue';
 import { incrementCount } from 'states/apiCount';
 import { setSearchResultList } from 'states/searchResultList';
-import FuzzyString from 'components/Fuzzystring';
+import FuzzyString from 'services/Fuzzystring';
 import { uniqBy } from 'lodash';
 
 export const useSearchAll = () => {

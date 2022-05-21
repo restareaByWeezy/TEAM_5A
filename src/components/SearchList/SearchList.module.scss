@@ -21,29 +21,40 @@
     user-select: none;
   }
 
-  .listContent {
-    position: relative;
-    top: 30px;
-    display: flex;
+  .listContainer {
     width: 100%;
-    height: 50px;
-    padding: 0 10px;
-    font-weight: bold;
-    line-height: 50px;
-    cursor: pointer;
-    user-select: none;
 
-    .icon {
-      opacity: 0.6;
-      transform: scale(50%);
+    .listContent {
+      position: relative;
+      top: 30px;
+      display: flex;
+      width: 100%;
+      height: 50px;
+      padding: 0 10px;
+      line-height: 50px;
+      cursor: pointer;
+      user-select: none;
+
+      .icon {
+        width: 24px;
+        margin: 0 12px;
+        opacity: 0.6;
+      }
+
+      .recommended {
+        font-weight: bold;
+        color: colors.$GRAY9;
+      }
+
+      mark {
+        font-weight: bold;
+        color: colors.$GRAY9;
+        background-color: rgba(colors.$BLUE3, 0.6);
+      }
     }
 
-    mark {
-      font-weight: bold;
+    .isFocus {
+      background-color: rgba(colors.$GRAYD, 0.6);
     }
-  }
-
-  .isFocus {
-    background-color: rgba(colors.$GRAYD, 0.6);
   }
 }

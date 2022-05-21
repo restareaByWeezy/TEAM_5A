@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { setSearchValue } from 'states/value/searchValue';
 import { SearchIcon } from 'assets/svgs';
 
-import styles from './SearchList.module.scss';
+import styles from './searchList.module.scss';
 
 interface Props {
   isLoading: boolean;
@@ -56,26 +56,32 @@ const SearchList = ({ isLoading }: Props) => {
 
   const loadSearchList = (() => {
     if (isLoading) return <p className={styles.title}>데이터 로딩 중...</p>;
+
     if (searchResult.items.length === 0) return <p className={styles.title}>검색 결과가 없습니다.</p>;
+
     return (
-      <ul>
-        {searchResult.items.map((item, idx) => (
-          <li
-            className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
-            key={item.sickCd}
-            data-idx={idx}
-            onMouseEnter={handleMouseEnter}
-          >
-            <SearchIcon className={styles.icon} />
-            {/* <span>{item.sickNm}</span> */}
-            <span>
-              {item.sickNm.split(',').map((letter, i) => {
-                const key = `${item.sickCd}-${i}`;
-                return letter[0] === '|' ? <mark key={key}>{letter.split('|')[1]}</mark> : letter;
-              })}
-            </span>
-          </li>
-        ))}
+      <ul className={styles.listContainer}>
+        {searchResult.items.map((item, idx) => {
+          return (
+            <li
+              className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
+              key={item.sickCd}
+              data-idx={idx}
+              onMouseEnter={handleMouseEnter}
+            >
+              <SearchIcon className={styles.icon} />
+              <a
+                className={styles.recommended}
+                href={`https://clinicaltrialskorea.com/studies?condition=${item.originSickNm}`}
+              >
+                {item.sickNm.split(',').map((letter, i) => {
+                  const key = `${item.sickCd}-${i}`;
+                  return letter[0] === '|' ? <mark key={key}>{letter.split('|')[1]}</mark> : letter;
+                })}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     );
   })();

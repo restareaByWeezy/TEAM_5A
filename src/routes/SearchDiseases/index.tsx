@@ -7,7 +7,8 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
 import SearchList from 'components/SearchList';
 
-import styles from './SearchDiseases.module.scss';
+import styles from './searchDiseases.module.scss';
+import { SearchIcon } from 'assets/svgs';
 
 const SearchDiseases = () => {
   // TODO: managed state
@@ -40,6 +41,7 @@ const SearchDiseases = () => {
       </header>
       <main>
         <form className={styles.searchWrapper} onSubmit={handleSubmit}>
+          <SearchIcon className={styles.icon} />
           <input
             className={styles.searchInput}
             type="text"

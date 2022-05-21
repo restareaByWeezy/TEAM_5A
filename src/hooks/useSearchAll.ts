@@ -44,6 +44,7 @@ export const useSearchAll = () => {
       .map((row) => {
         return {
           sickCd: row.sickCd,
+          originSickNm: row.sickNm,
           sickNm: row.sickNm.replace(regex, (match, ...groups) => {
             const letters = groups.slice(0, groups.length - 2);
             let lastIndex = 0;
@@ -60,7 +61,6 @@ export const useSearchAll = () => {
           }),
         };
       });
-
     dispatch(setSearchResultList(resultData.slice(0, 8)));
 
     // const result = searchValue ? data.filter(({ sickNm }) => sickNm.toLowerCase().includes(searchValue)) : [];

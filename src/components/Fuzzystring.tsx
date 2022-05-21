@@ -49,6 +49,6 @@ function FuzzyString(inputValue: string) {
       return `(${prev})`;
     })
     .join('.*?');
-  return new RegExp(pattern, 'i');
+  return new RegExp(pattern, 'gi');
 }
 export default FuzzyString;

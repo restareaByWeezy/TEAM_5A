@@ -73,10 +73,6 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     };
   });
 
-  // useEffect(() => {
-  //   dispatch(setSearchValue(text));
-  // }, [text]);
-
   const title = searchResult.items.length === 0 || isLoading ? '' : '추천 검색어';
 
   const loadSearchList = (() => {

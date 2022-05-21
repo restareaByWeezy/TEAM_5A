@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useQuery } from 'react-query';
-import { uniqBy } from 'lodash';
 
-import FuzzyString from 'components/Fuzzystring';
 import { useAppSelector } from 'hooks';
 import { getAllDiseasesApi } from 'services/search';
 import { getSearchValue } from 'states/value/searchValue';
 import { incrementCount } from 'states/apiCount';
 import { setSearchResultList } from 'states/searchResultList';
+import FuzzyString from 'services/Fuzzystring';
+import { uniqBy } from 'lodash';
 
 export const useSearchAll = () => {
   const searchValue = useAppSelector(getSearchValue);

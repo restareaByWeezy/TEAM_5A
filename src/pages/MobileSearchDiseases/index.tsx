@@ -4,8 +4,8 @@ import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector } from 'hooks';
 import { getSearchValue } from 'states/value/searchValue';
 import styles from './MobileSearchDiseases.module.scss';
-import { SearchIcon } from '../assets/svgs/index';
-import MobileSearchList from './MobileSearchList';
+import { SearchIcon } from '../../assets/svgs/index';
+import MobileSearchList from '../../components/MobileSearchList/MobileSearchList';
 
 const MobileSearchDisease = () => {
   const { isLoading } = useSearchAll();

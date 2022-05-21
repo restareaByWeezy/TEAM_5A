@@ -19,8 +19,6 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
   const searchValue = useAppSelector(getSearchValue);
   const dispatch = useAppDispatch();
 
-  // 필요없지 않나...?
-
   // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
   // };
@@ -97,19 +95,26 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
         ) : (
           searchResult.items.length === 0 && <p className={styles.noResult}>검색 결과가 없습니다.</p>
         )}
-        <ul>
-          {searchResult.items.map((item, idx) => (
-            <li
-              className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
-              key={item.sickCd}
-              data-idx={idx}
-              onMouseEnter={handleMouseEnter}
-            >
-              <SearchIcon className={styles.icon} />
-              <span>{item.sickNm}</span>
-            </li>
-          ))}
-        </ul>
+        {searchValue && (
+          <ul>
+            {searchResult.items.map((item, idx) => (
+              <li
+                className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
+                key={item.sickCd}
+                data-idx={idx}
+                onMouseEnter={handleMouseEnter}
+              >
+                <SearchIcon className={styles.icon} />
+                <span>
+                  {item.sickNm.split(',').map((letter, i) => {
+                    const key = `${item.sickCd}-${i}`;
+                    return letter[0] === '|' ? <mark key={key}>{letter.split('|')[1]}</mark> : letter;
+                  })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   })();

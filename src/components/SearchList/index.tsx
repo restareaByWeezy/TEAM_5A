@@ -16,7 +16,6 @@ const SearchList = ({ isLoading }: Props) => {
   const dispatch = useAppDispatch();
 
   const searchResult = useAppSelector((state) => state.searchResultList);
-
   useEffect(() => {
     setIndex(-1);
   }, [searchResult]);

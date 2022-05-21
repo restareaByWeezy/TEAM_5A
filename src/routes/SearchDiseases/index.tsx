@@ -5,9 +5,9 @@ import { debounce } from 'lodash';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
-import SearchList from 'components/SearchList';
+import SearchList from 'components/SearchList/index';
 
-import styles from './SearchDiseases.module.scss';
+import styles from './searchDiseases.module.scss';
 
 const SearchDiseases = () => {
   // TODO: managed state

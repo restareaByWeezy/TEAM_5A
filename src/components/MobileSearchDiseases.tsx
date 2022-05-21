@@ -1,9 +1,8 @@
-import { useMemo, useState } from 'react';
-import { debounce } from 'lodash';
+import { useState } from 'react';
 
 import { useSearchAll } from 'hooks/useSearchAll';
-import { useAppSelector, useAppDispatch } from 'hooks';
-import { getSearchValue, setSearchValue } from 'states/value/searchValue';
+import { useAppSelector } from 'hooks';
+import { getSearchValue } from 'states/value/searchValue';
 import styles from './MobileSearchDiseases.module.scss';
 import { SearchIcon } from '../assets/svgs/index';
 import MobileSearchList from './MobileSearchList';
@@ -11,7 +10,6 @@ import MobileSearchList from './MobileSearchList';
 const MobileSearchDisease = () => {
   const { isLoading } = useSearchAll();
   const searchValue = useAppSelector(getSearchValue);
-  const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,16 +17,9 @@ const MobileSearchDisease = () => {
     e.preventDefault();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchValue(e.target.value));
-  };
-
   const handleShowList = () => {
     setIsOpen((prev) => !prev);
   };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
   return (
     <div className={styles.bg}>

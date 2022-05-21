@@ -21,7 +21,6 @@ export const useSearchAll = () => {
       return getAllDiseasesApi();
     },
     {
-      enabled: !!searchValue,
       staleTime: 2 * 60 * 1000,
     }
   );

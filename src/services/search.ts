@@ -1,8 +1,8 @@
 /* eslint-disable consistent-return */
 import { axios } from 'hooks/worker';
 
-const SEARCH_DISEASES_BASE_URL = '/getDissNameCodeList?sickType=1&medTp=2&diseaseType=SICK_NM';
-
+// const SEARCH_DISEASES_BASE_URL = '/getDissNameCodeList?sickType=1&medTp=2&diseaseType=SICK_NM';
+const SEARCH_DISEASES_BASE_URL = 'https://humanscape-api-server.vercel.app/';
 interface Params {
   searchText: string;
 }
@@ -26,8 +26,8 @@ export const getAllDiseasesApi = async () => {
   const { data } = await axios.get<IDiseaseAPIRes>(`${SEARCH_DISEASES_BASE_URL}`, {
     params: {
       _type: 'json',
-      serviceKey: process.env.REACT_APP_DISEASES_ID,
       numOfRows: 2000,
+      ServiceKey: process.env.REACT_APP_DISEASES_ID,
     },
   });
 

@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
 import SearchList from 'components/SearchList';
 
-import styles from './searchDiseases.module.scss';
+import styles from './SearchDiseases.module.scss';
 
 const SearchDiseases = () => {
   // TODO: managed state
@@ -42,11 +42,11 @@ const SearchDiseases = () => {
         <form className={styles.searchWrapper} onSubmit={handleSubmit}>
           <input
             className={styles.searchInput}
-            type='text'
-            placeholder='질환명을 입력해 주세요.'
+            type="text"
+            placeholder="질환명을 입력해 주세요."
             onChange={debouncedChangeHandler}
           />
-          <button className={styles.searchButton} type='submit'>
+          <button className={styles.searchButton} type="submit">
             검색
           </button>
         </form>

@@ -7,7 +7,7 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
 import SearchList from 'components/SearchList';
 
-import styles from './searchDiseases.module.scss';
+import styles from './SearchDiseases.module.scss';
 import { SearchIcon } from 'assets/svgs';
 
 const SearchDiseases = () => {

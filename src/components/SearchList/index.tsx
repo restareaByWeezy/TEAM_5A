@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from 'hooks';
 import { setSearchValue } from 'states/value/searchValue';
 import { SearchIcon } from 'assets/svgs';
 
-import styles from './searchList.module.scss';
+import styles from './SearchList.module.scss';
 
 interface Props {
   isLoading: boolean;

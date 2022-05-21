@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import i18n, { InitOptions } from 'i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
+import i18n, { InitOptions } from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
-import enFront from './en/front.json'
-import koFront from './ko/front.json'
+import enFront from './en/front.json';
+import koFront from './ko/front.json';
 
 i18n.use(LanguageDetector).init({
   resources: {
@@ -31,6 +31,6 @@ i18n.use(LanguageDetector).init({
   react: {
     useSuspense: true,
   },
-} as InitOptions)
+} as InitOptions);
 
-export default i18n
+export default i18n;

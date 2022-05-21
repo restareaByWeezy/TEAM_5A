@@ -1,94 +1,85 @@
-import { IItem } from 'types/search'
-import cx from 'classnames'
+import { useEffect, useState } from 'react';
+import cx from 'classnames';
 
-import styles from './SearchList.module.scss'
-// import '../SearchDiseases.scss'
-import { Dispatch, SetStateAction, useEffect, useState, useRef } from 'react'
+import { useAppSelector, useAppDispatch } from 'hooks';
+import { setSearchValue } from 'states/value/searchValue';
+import { SearchIcon } from 'assets/svgs';
+
+import styles from './SearchList.module.scss';
 
 interface Props {
-  searchList: IItem[]
-  isOpen: boolean
-  setIsOpen: Dispatch<SetStateAction<boolean>>
+  isLoading: boolean;
 }
 
-const SearchList = ({ searchList, isOpen, setIsOpen }: Props) => {
-  const [index, setIndex] = useState<number>(-1)
-  // const [stringList, setStringList] = useState<IItem[]>([])
+const SearchList = ({ isLoading }: Props) => {
+  const [index, setIndex] = useState(-1);
+  const dispatch = useAppDispatch();
 
-  const autoRef = useRef<HTMLUListElement>(null)
-  // console.log(autoRef)
-
-  const handleKeyPress = (event: { key: string }) => {
-    if (!searchList) return
-    if (event.key === 'ArrowDown') {
-      // if (index < searchList.length - 1) window.scrollTo(0, 0)
-      isOpen && setIndex((prev) => (prev < searchList.length - 1 ? prev + 1 : 0))
-    }
-    if (event.key === 'ArrowUp') {
-      isOpen && setIndex((prev) => (prev > 0 ? prev - 1 : searchList.length - 1))
-    }
-    if (event.key === 'Escape') {
-      setIndex(-1)
-      setIsOpen(false)
-    }
-  }
+  const searchResult = useAppSelector((state) => state.searchResultList);
 
   useEffect(() => {
-    // attach the event listener
-    document.addEventListener('keydown', handleKeyPress)
+    setIndex(-1);
+  }, [searchResult]);
 
-    // remove the event listener
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress)
+  const handleKeyPress = (event: { key: string }) => {
+    if (!searchResult.items.length) return;
+
+    switch (event.key) {
+      case 'ArrowDown':
+        setIndex((prev) => (prev < searchResult.items.length - 1 ? prev + 1 : 0));
+        break;
+      case 'ArrowUp':
+        setIndex((prev) => (prev > 0 ? prev - 1 : searchResult.items.length - 1));
+        break;
+      case 'Escape':
+        dispatch(setSearchValue(''));
+        setIndex(-1);
+        break;
     }
-  })
+  };
 
-  // useMemo(() => {
-  //   if (!inputValue) return
-  //   if (!searchList) return
-  //   const regex = FuzzyString(inputValue)
-  //   const resultData = searchList
-  //     .filter((row) => {
-  //       return regex.test(row.sickNm)
-  //     })
-  //     .map((row) => {
-  //       return {
-  //         sickCd: row.sickCd,
-  //         sickNm: row.sickNm.replace(regex, (match, ...groups) => {
-  //           const letters = groups.slice(0, groups.length - 2)
-  //           let lastIndex = 0
-  //           const highlighted = []
-  //           for (let i = 0, l = letters.length; i < l; i += 1) {
-  //             const idx = match.indexOf(letters[i], lastIndex)
-  //             highlighted.push(match.substring(lastIndex, idx))
-  //             highlighted.push(`^${letters[i]}^`)
-  //             lastIndex = idx + 1
-  //           }
-  //           return highlighted.join('')
-  //         }),
-  //       }
-  //     })
-  //   setStringList(resultData)
-  //   // console.log(resultData)
-  // }, [inputValue, searchList])
+  const handleMouseEnter = (e: React.MouseEvent<HTMLLIElement>) => {
+    if (!e.currentTarget?.dataset.idx) return;
+    setIndex(Number(e.currentTarget.dataset.idx));
+  };
 
-  const loadSearchList =
-    searchList.length !== 0 &&
-    searchList.map((item, idx) => (
-      <li className={cx(styles.listContent, { [styles.isFocus]: idx === index })} key={item.sickCd}>
-        {/* {item.sickNm} */}
-        <div dangerouslySetInnerHTML={{ __html: item.sickNm }} />
-      </li>
-    ))
+  // TODO 처음 키 두 번 입력됨
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  });
+
+  const title = searchResult.items.length === 0 || isLoading ? '' : '추천 검색어';
+
+  const loadSearchList = (() => {
+    if (isLoading) return <p className={styles.title}>데이터 로딩 중...</p>;
+    if (searchResult.items.length === 0) return <p className={styles.title}>검색 결과가 없습니다.</p>;
+    return (
+      <ul>
+        {searchResult.items.map((item, idx) => (
+          <li
+            className={cx(styles.listContent, { [styles.isFocus]: idx === index })}
+            key={item.sickCd}
+            data-idx={idx}
+            onMouseEnter={handleMouseEnter}
+          >
+            <SearchIcon className={styles.icon} />
+            <span>{item.sickNm}</span>
+          </li>
+        ))}
+      </ul>
+    );
+  })();
 
   return (
     <div className={styles.list}>
-      <p>추천 검색어</p>
-      <ul className={styles.valueList} ref={autoRef}>
-        {loadSearchList}
-      </ul>
+      <p className={styles.title}>{title}</p>
+      {loadSearchList}
     </div>
-  )
-}
+  );
+};
 
-export default SearchList
+export default SearchList;

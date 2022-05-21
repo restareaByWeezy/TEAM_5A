@@ -1,20 +1,22 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react'
-import { useQuery } from 'react-query'
-import { debounce, uniqBy } from 'lodash'
+import { useMemo } from 'react';
+import { debounce } from 'lodash';
 
-import { getSearchDiseasesApi } from 'services/search'
+// import { useSearchKeyword } from 'hooks/useSearchKeyword';
+import { useSearchAll } from 'hooks/useSearchAll';
+import { useAppSelector, useAppDispatch } from 'hooks';
+import { getSearchValue, setSearchValue } from 'states/value/searchValue';
+import SearchList from 'components/SearchList';
 
-import './SearchDiseases.scss'
-import SearchList from '../../components/SearchList'
-import FuzzyString from '../../components/Fuzzystring'
-
-import { IItem } from 'types/search'
+import styles from './SearchDiseases.module.scss';
 
 const SearchDiseases = () => {
-  const [inputValue, setInputValue] = useState<string>('')
-  const [isOpen, setIsOpen] = useState(false)
+  // TODO: managed state
+  // const [inputValue, setInputValue] = useState('');
+  const { isLoading } = useSearchAll();
+  // const { isLoading } = useSearchKeyword();
 
-  const [stringList, setStringList] = useState<IItem[]>([])
+  const searchValue = useAppSelector(getSearchValue);
+  const dispatch = useAppDispatch();
 
   // const loadDieasesList = (input: string) => {
   //   if (!input) {
@@ -48,42 +50,44 @@ const SearchDiseases = () => {
   //   setStringList(resultData.slice(0, 8))
   // }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value)
-    // loadDieasesList(e.target.value)
-  }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-  }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchValue(e.target.value));
+  };
 
-  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedChangeHandler = useMemo(() => debounce(handleChange, 1000), []);
 
   return (
-    <div className='bg'>
-      <div className='bg-center'>
-        <div className='container'>
-          <div className='search-container'>
+    <div className={styles.bg}>
+      <div className={styles.bgCenter}>
+        <div className={styles.container}>
+          <div className={styles.searchContainer}>
             <h1>
-              <div>국내 모든 임상시험 검색하고</div> 온라인으로 참여하기
+              <p>국내 모든 임상시험 검색하고</p> 온라인으로 참여하기
             </h1>
-            <form className='search-wrapper' onSubmit={handleSubmit}>
-              <div className='input-wrapper'>
-                <input type='text' placeholder='질환명을 입력해 주세요.' onChange={debouncedChangeHandler} />
+            <form className={styles.searchWrapper} onSubmit={handleSubmit}>
+              <div className={styles.inputWrapper}>
+                <input
+                  className={styles.searchInput}
+                  type="text"
+                  placeholder="질환명을 입력해 주세요."
+                  onChange={debouncedChangeHandler}
+                />
               </div>
-              <button type='submit' className='search-textbox'>
+              <button className={styles.searchTextbox} type="submit">
                 검색
               </button>
             </form>
-            {/* {isOpen && data?.items.item && (
-              <SearchList searchList={data?.items.item} isOpen={isOpen} setIsOpen={setIsOpen} />
-            )} */}
-            {isOpen && stringList && <SearchList searchList={stringList} isOpen={isOpen} setIsOpen={setIsOpen} />}
+            {(isLoading || searchValue) && <SearchList isLoading={isLoading} />}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SearchDiseases
+export default SearchDiseases;

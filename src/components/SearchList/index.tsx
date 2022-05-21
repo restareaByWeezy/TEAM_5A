@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import cx from 'classnames';
 
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { setSearchValue } from 'states/value/searchValue';
+import { setSearchValue } from 'states/searchValue';
 import { SearchIcon } from 'assets/svgs';
 
 import styles from './SearchList.module.scss';

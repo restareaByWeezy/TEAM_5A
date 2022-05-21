@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { BackIcon, CloseIcon, SearchIcon } from 'assets/svgs';
 
 import { useAppSelector, useAppDispatch } from 'hooks';
-import { getSearchValue, setSearchValue } from 'states/value/searchValue';
+import { getSearchValue, setSearchValue } from 'states/searchValue';
 
 import styles from './MobileSearchList.module.scss';
 

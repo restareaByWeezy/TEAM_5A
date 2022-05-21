@@ -30,8 +30,8 @@ const MobileSearchDisease = () => {
               국내 모든 임상시험 검색하고 <br /> 온라인으로 참여하기
             </div>
             <form className={styles.searchWrapper} onSubmit={handleSubmit}>
-              <div role='presentation' className={styles.inputWrapper}>
-                <button type='button' className={styles.listBtn} onClick={handleShowList}>
+              <div role="presentation" className={styles.inputWrapper}>
+                <button type="button" className={styles.listBtn} onClick={handleShowList}>
                   {searchValue}
                 </button>
                 <SearchIcon className={styles.searchIcon} />

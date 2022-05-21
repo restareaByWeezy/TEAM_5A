@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { store } from './states';
 import i18n from 'utils/locale';

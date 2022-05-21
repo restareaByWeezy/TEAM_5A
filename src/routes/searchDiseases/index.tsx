@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import { debounce } from 'lodash';
 
-import { useSearchKeyword } from 'hooks/useSearchKeyword';
+// import { useSearchKeyword } from 'hooks/useSearchKeyword';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/value/searchValue';
-import SearchList from 'components/SearchList';
+import SearchList from 'components/SearchList/index';
 
 import styles from './searchDiseases.module.scss';
 

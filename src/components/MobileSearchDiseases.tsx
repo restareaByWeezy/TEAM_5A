@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { debounce } from 'lodash';
 
 import { useSearchKeyword } from 'hooks/useSearchKeyword';
@@ -17,12 +17,18 @@ const MobileSearchDisease = () => {
   const searchValue = useAppSelector(getSearchValue);
   const dispatch = useAppDispatch();
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(e.target.value));
+  };
+
+  const handleShowList = () => {
+    setIsOpen((prev) => !prev);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,7 +43,7 @@ const MobileSearchDisease = () => {
               국내 모든 임상시험 검색하고 <br /> 온라인으로 참여하기
             </div>
             <form className={styles.searchWrapper} onSubmit={handleSubmit}>
-              <div className={styles.inputWrapper}>
+              <div role='button' className={styles.inputWrapper} onClick={handleShowList}>
                 <input
                   className={styles.input}
                   type='text'
@@ -47,7 +53,7 @@ const MobileSearchDisease = () => {
                 <SearchIcon className={styles.searchIcon} />
               </div>
             </form>
-            {(isLoading || searchValue) && <MobileSearchList isLoading={isLoading} />}
+            {isOpen && <MobileSearchList isLoading={isLoading} />}
           </div>
         </div>
       </div>

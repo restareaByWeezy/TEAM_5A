@@ -2,7 +2,7 @@ import MobileSearchDisease from 'components/MobileSearchDiseases';
 import { Routes, Route } from 'react-router-dom';
 import styles from './Routes.module.scss';
 
-import SearchDiseases from './SearchDiseases';
+import SearchDiseases from './searchDiseases/index';
 
 const App = () => {
   return (

@@ -6,7 +6,7 @@ import { getSearchDiseasesAPI } from 'services/api';
 import { getSearchValue } from 'states/searchValue';
 import { incrementCount } from 'states/apiCount';
 import { setSearchResultList } from 'states/searchResultList';
-import { fuzzyFilter } from 'services/Fuzzystring';
+import { fuzzyFilter } from 'services/fuzzyString';
 import { useAppSelector } from './useAppSelector';
 
 export const useSearchKeyword = () => {

@@ -1,6 +1,5 @@
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, ClickEvent } from 'react';
 
-// import { useSearchKeyword } from 'hooks/useSearchKeyword';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/searchValue';
@@ -12,15 +11,16 @@ import { SearchIcon } from 'assets/svgs';
 const SearchDiseases = () => {
   const { isLoading } = useSearchAll();
 
-  // 키워드 별로 api를 호출하는 기능입니다.
-  // const { isLoading } = useSearchKeyword();
-
   const searchValue = useAppSelector(getSearchValue);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  const handleClickSubmitButton = (e: ClickEvent<HTMLButtonElement>) {
+    
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(e.target.value));

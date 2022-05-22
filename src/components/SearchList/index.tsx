@@ -1,30 +1,36 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, useEffect, Dispatch, SetStateAction } from 'react';
 import cx from 'classnames';
 
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { setSearchValue } from 'states/searchValue';
 import { SearchIcon } from 'assets/svgs';
+import { SEARCH_BASE_URL } from 'services/searchURL';
 
 import styles from './SearchList.module.scss';
-import { SEARCH_BASE_URL } from 'services/searchURL';
 
 interface Props {
   isLoading: boolean;
+  index: number;
+  setIndex: Dispatch<SetStateAction<number>>;
 }
 
-const SearchList = ({ isLoading }: Props) => {
-  const [index, setIndex] = useState(-1);
+const SearchList = ({ isLoading, index, setIndex }: Props) => {
+  const searchResult = useAppSelector((state) => state.searchResultList);
   const dispatch = useAppDispatch();
 
-  const searchResult = useAppSelector((state) => state.searchResultList);
   useEffect(() => {
     setIndex(-1);
-  }, [searchResult]);
+  }, [searchResult, setIndex]);
 
-  const handleKeyPress = (event: { key: string }) => {
+  const handleKeyPress = (e: { key: string }) => {
     if (!searchResult.items.length) return;
 
-    switch (event.key) {
+    switch (e.key) {
+      case 'Enter':
+        if (index >= 0) {
+          window.open(`${SEARCH_BASE_URL}${searchResult.items[index].originSickNm}`, '_self');
+        }
+        break;
       case 'ArrowDown':
         setIndex((prev) => (prev < searchResult.items.length - 1 ? prev + 1 : 0));
         break;

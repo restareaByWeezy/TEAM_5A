@@ -71,7 +71,6 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     };
   });
 
-  // handle form event
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };

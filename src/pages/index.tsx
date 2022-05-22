@@ -2,7 +2,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import styles from './Pages.module.scss';
 
-import MobileSearchDisease from 'pages/MobileSearchDiseases';
+import MobileSearchDiseases from 'pages/MobileSearchDiseases';
 import SearchDiseases from './SearchDiseases/index';
 
 const App = () => {
@@ -15,7 +15,7 @@ const App = () => {
     <div className={styles.appWrapper}>
       <div className={styles.app}>
         {isDesktopOrLaptop && <SearchDiseases />}
-        {isTabletOrMobile && <MobileSearchDisease />}
+        {isTabletOrMobile && <MobileSearchDiseases />}
       </div>
     </div>
   );

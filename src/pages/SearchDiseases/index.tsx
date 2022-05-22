@@ -7,6 +7,7 @@ import { getSearchValue, setSearchValue } from 'states/searchValue';
 import SearchList from 'components/SearchList';
 
 import styles from './SearchDiseases.module.scss';
+import { SearchIcon } from 'assets/svgs';
 
 const SearchDiseases = () => {
   const { isLoading } = useSearchAll();
@@ -36,6 +37,7 @@ const SearchDiseases = () => {
       </header>
       <main>
         <form className={styles.searchWrapper} onSubmit={handleSubmit}>
+          <SearchIcon className={styles.icon} />
           <input
             className={styles.searchInput}
             type="text"

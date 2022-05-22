@@ -6,7 +6,7 @@ import { getAllDiseasesApi } from 'services/api';
 import { getSearchValue } from 'states/searchValue';
 import { incrementCount } from 'states/apiCount';
 import { setSearchResult } from 'states/searchResult';
-import { fuzzyFilter } from 'services/Fuzzystring';
+import { fuzzyFilter } from 'services/fuzzyString';
 
 import { useAppSelector } from './useAppSelector';
 

@@ -35,8 +35,8 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     setIndex(Number(e.currentTarget.dataset.idx));
   };
 
-  const handleKeyPress = (e: { key: string }) => {
-    if (!searchResult.items.length) return;
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (!searchResult.items.length || e.isComposing) return;
 
     switch (e.key) {
       case 'Enter':
@@ -71,9 +71,12 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     };
   });
 
-  // handle form event
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (index === -1) {
+      window.open(`${SEARCH_BASE_URL}${searchValue}`, '_self');
+    }
   };
 
   const title = searchResult.items.length === 0 || isLoading ? '' : '추천 검색어';

@@ -22,8 +22,8 @@ const SearchList = ({ isLoading, index, setIndex }: Props) => {
     setIndex(-1);
   }, [searchResult, setIndex]);
 
-  const handleKeyPress = (e: { key: string }) => {
-    if (!searchResult.items.length) return;
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (!searchResult.items.length || e.isComposing) return;
 
     switch (e.key) {
       case 'Enter':

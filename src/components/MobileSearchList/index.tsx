@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, MouseEvent, SetStateAction, useEffect, useState } from 'react';
+import { ChangeEvent, Dispatch, FormEvent, MouseEvent, SetStateAction, useEffect, useState } from 'react';
 import cx from 'classnames';
 
 import { BackIcon, CloseIcon, SearchIcon } from 'assets/svgs';
@@ -63,6 +63,10 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
       document.removeEventListener('keydown', handleKeyPress);
     };
   });
+  // handle form event
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   const title = searchResult.items.length === 0 || isLoading ? '' : '추천 검색어';
 
@@ -93,7 +97,7 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     <div className={styles.list}>
       <p className={styles.title}>{title}</p>
       <div className={styles.listContainer}>
-        <form className={styles.searchForm}>
+        <form className={styles.searchForm} onSubmit={handleSubmit}>
           <div className={styles.searchFormWrapper}>
             <button type="button" className={styles.backIcon} onClick={handleShowList}>
               <BackIcon />

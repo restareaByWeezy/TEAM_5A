@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, ClickEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
+// import { useSearchKeyword } from 'hooks/useSearchKeyword';
 import { useSearchAll } from 'hooks/useSearchAll';
 import { useAppSelector, useAppDispatch } from 'hooks';
 import { getSearchValue, setSearchValue } from 'states/searchValue';
@@ -7,20 +8,31 @@ import SearchList from 'components/SearchList';
 
 import styles from './SearchDiseases.module.scss';
 import { SearchIcon } from 'assets/svgs';
+import { SEARCH_BASE_URL } from 'services/searchURL';
 
 const SearchDiseases = () => {
   const { isLoading } = useSearchAll();
+  const [index, setIndex] = useState(-1);
+
+  // 키워드 별로 api를 호출하는 기능입니다.
+  // const { isLoading } = useSearchKeyword();
 
   const searchValue = useAppSelector(getSearchValue);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (index === -1) {
+      window.open(`${SEARCH_BASE_URL}${searchValue}`, '_self');
+    }
   };
 
-  const handleClickSubmitButton = (e: ClickEvent<HTMLButtonElement>) {
-    
-  }
+  const handleClickSubmitButton = () => {
+    if (index === -1) {
+      window.open(`${SEARCH_BASE_URL}${searchValue}`, '_self');
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(e.target.value));
@@ -45,11 +57,11 @@ const SearchDiseases = () => {
             onChange={handleChange}
             value={searchValue}
           />
-          <button className={styles.searchButton} type="submit">
+          <button className={styles.searchButton} type="submit" onClick={handleClickSubmitButton}>
             검색
           </button>
         </form>
-        {(isLoading || searchValue) && <SearchList isLoading={isLoading} />}
+        {(isLoading || searchValue) && <SearchList isLoading={isLoading} index={index} setIndex={setIndex} />}
       </main>
     </div>
   );

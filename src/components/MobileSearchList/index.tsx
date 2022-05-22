@@ -35,8 +35,8 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     setIndex(Number(e.currentTarget.dataset.idx));
   };
 
-  const handleKeyPress = (e: { key: string }) => {
-    if (!searchResult.items.length) return;
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (!searchResult.items.length || e.isComposing) return;
 
     switch (e.key) {
       case 'Enter':

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import searchValue from './searchValue';
 import apiCount from './apiCount';
-import searchResultList from './searchResultList';
+import searchResultList from './searchResult';
 
 export const store = configureStore({
   reducer: {

@@ -1,5 +1,12 @@
 # 검색어 추천이 있는 검색창 만들기
 
+## 프로젝트 진행
+### 개발자
+- 이지정, 곽태훈, 박휘건, 민지원
+
+### 개발 기간
+- 2022.05.20 ~ 2022.05.22 (3일간)
+
 ## 목차
 * [Overview](https://github.com/preOnboarding-5-team/TEAM_5A#overview)
 * [실행 화면 및 기능](https://github.com/preOnboarding-5-team/TEAM_5A#실행-화면-및-기능)
@@ -32,6 +39,8 @@
 
 * 위/아래 키보드를 누르거나 마우스를 이용해 원하는 추천 검색어로 이동할 수 있습니다. 마우스가 특정 추천 검색어를 가리키는 상태에서 위/아래 키보드를 누르면, 마우스가 가리키던 위치에서 시작하여 움직입니다.
 * 키워드를 입력한 상태에서 엔터나 검색 버튼을 누르면 키워드 그대로 검색이 됩니다. 추천 검색어 중 하나를 선택하면 [한국임상정보](https://clinicaltrialskorea.com/)에서 해당 검색어로 검색한 화면이 나타납니다.
+
+---
 
 ### 모바일 화면
 
@@ -122,7 +131,7 @@ src/
 <img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
 <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat-square&logo=ReactQuery&logoColor=white"/>
 
-## dependencies
+## Dependencies
 - axios
 - lodash
 - react-query

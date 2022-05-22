@@ -39,6 +39,13 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
     if (!searchResult.items.length) return;
 
     switch (e.key) {
+      case 'Enter':
+        if (index === -1) {
+          window.open(`${SEARCH_BASE_URL}${searchValue}`, '_self');
+        } else {
+          window.open(`${SEARCH_BASE_URL}${searchResult.items[index].originSickNm}`, '_self');
+        }
+        break;
       case 'ArrowDown':
         setIndex((prev) => (prev < searchResult.items.length - 1 ? prev + 1 : 0));
         break;
@@ -63,6 +70,7 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
       document.removeEventListener('keydown', handleKeyPress);
     };
   });
+
   // handle form event
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

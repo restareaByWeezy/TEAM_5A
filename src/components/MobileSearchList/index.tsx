@@ -73,6 +73,10 @@ const MobileSearchList = ({ isLoading, setIsOpen }: Props) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (index === -1) {
+      window.open(`${SEARCH_BASE_URL}${searchValue}`, '_self');
+    }
   };
 
   const title = searchResult.items.length === 0 || isLoading ? '' : '추천 검색어';

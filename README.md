@@ -179,3 +179,12 @@ redux로 관리되고 있는 검색 값을 메인 화면과 검색창 화면이 
   - 결과값에 태그가 포함된 후 문자열로 저장되기 때문에 html 파싱을 하지 않으면 `<mark>어</mark>떤문자` 처럼 출력되는 문제가 있었습니다.
   - `innerHTML` 이나 `dangerouslySetInnerHTML`을 사용하는 것은 XSS(크로스 사이트 스크립팅)에 취약하기 때문에 사용하지 않았습니다.
   - `split`을 통해 단어를 구별하고, 구별된 단어들 중 입력한 글자일 경우`<mark>`태그로 다시 감싸서 화면에 출력되는 방법을 사용했습니다.
+
+![검색결과없음](https://user-images.githubusercontent.com/64529155/169680754-29b0c980-52f4-4186-9bc2-42501874758e.gif)
+![데이터불러오기](https://user-images.githubusercontent.com/64529155/169680756-e6183afa-0eb6-4ea3-8a2e-31d2a03acda9.gif)
+![초성검색](https://user-images.githubusercontent.com/64529155/169680758-5d505f8e-f00e-43ec-8ab0-e76238ad7cbf.gif)
+![키보드링크이동](https://user-images.githubusercontent.com/64529155/169680763-31d83e9a-62af-41e4-a4c9-4e9e58d500bb.gif)
+![키보드링크이동2](https://user-images.githubusercontent.com/64529155/169680764-4ae5ab4e-dc78-48a5-a7ed-42666acd2ecb.gif)
+![화면나갔을때값](https://user-images.githubusercontent.com/64529155/169680767-9b15da66-6a7c-48aa-aff4-ab52f468d69f.gif)
+
+

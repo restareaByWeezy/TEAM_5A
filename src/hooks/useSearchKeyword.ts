@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { getSearchDiseasesAPI } from 'services/api';
 import { getSearchValue } from 'states/searchValue';
 import { incrementCount } from 'states/apiCount';
-import { setSearchResultList } from 'states/searchResultList';
+import { setSearchResult } from 'states/searchResult';
 import { fuzzyFilter } from 'services/Fuzzystring';
 import { useAppSelector } from './useAppSelector';
 
@@ -35,7 +35,7 @@ export const useSearchKeyword = () => {
 
   useEffect(() => {
     if (!data) return;
-    dispatch(setSearchResultList(fuzzyFilter(data, searchValue)));
+    dispatch(setSearchResult(fuzzyFilter(data, searchValue)));
   }, [searchValue, data, dispatch]);
 
   return { data, ...res };

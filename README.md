@@ -4,10 +4,11 @@
 * [Overview](https://github.com/preOnboarding-5-team/TEAM_5A#overview)
 * [실행 화면 및 기능](https://github.com/preOnboarding-5-team/TEAM_5A#실행-화면-및-기능)
 * [Directory](https://github.com/preOnboarding-5-team/TEAM_5A#directory)
-* [주요 기술 스택](https://github.com/preOnboarding-5-team/TEAM_5A#주요-기술-스택)
+* [주요 기술 스택](https://github.com/preOnboarding-5-team/TEAM_5A#주요-기술-스택)]
 * [구현 상세 설명](https://github.com/preOnboarding-5-team/TEAM_5A#구현-상세-설명)
   * [전역 상태 관리](https://github.com/preOnboarding-5-team/TEAM_5A#전역-상태-관리)
   * [Data Fetching](https://github.com/preOnboarding-5-team/TEAM_5A#data-fetching)
+* [Contributors](https://github.com/preOnboarding-5-team/TEAM_5A#contributors)
 
 ## Overview
 원티드 프리온보딩 코스 5-A조 휴먼스케이프 과제 프로젝트입니다. <br />

@@ -16,7 +16,6 @@ interface Props {
 
 const SearchList = ({ isLoading, index, setIndex }: Props) => {
   const searchResult = useAppSelector((state) => state.searchResultList);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {

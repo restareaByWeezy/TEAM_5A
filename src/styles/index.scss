@@ -2,3 +2,12 @@
 @import 'base/reset';
 @import 'base/more';
 @import 'base/fonts';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #cae9ff;
+}

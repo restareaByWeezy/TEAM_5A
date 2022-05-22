@@ -13,7 +13,8 @@
 원티드 프리온보딩 코스 5-A조 휴먼스케이프 과제 프로젝트입니다. <br />
 [한국임상정보](https://clinicaltrialskorea.com/)의 검색창을 클론 코딩하였고, [공공데이터포털 오픈 API](https://www.data.go.kr/data/15001675/openapi.do)의 데이터를 활용했습니다.
 
-## [배포 페이지](https://humanscape-team5a.netlify.app/) 
+## 배포 페이지
+(https://humanscape-team5a.netlify.app/) 
 
 ## 실행 화면과 기능
 * 검색창을 열면 바로 데이터가 로딩됩니다. 검색어를 입력하지 않더라도 '로딩 중...'이라는 메세지를 통해 데이터를 불러오고 있다는 것을 알 수 있습니다. 데이터를 다 불러올 때까지 검색어를 입력하지 않으면 드롭다운 메뉴가 닫힙니다.

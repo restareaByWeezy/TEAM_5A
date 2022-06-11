@@ -1,7 +1,9 @@
 /* eslint-disable consistent-return */
 import axios from 'axios';
 
-const SEARCH_DISEASES_BASE_URL = 'https://humanscape-api-server-restareabyweezy.vercel.app/';
+const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+
+const SEARCH_DISEASES_BASE_URL = `${PROXY}/B551182/diseaseInfoService/getDissNameCodeList`;
 
 interface Params {
   searchText: string;
@@ -12,6 +14,11 @@ export const getSearchDiseasesAPI = async (params: Params) => {
     params: {
       ...params,
       _type: 'json',
+      ServiceKey: process.env.REACT_APP_GET_DISS_API_KEY,
+      numOfRows: 2000,
+      sickType: 1,
+      medTp: 2,
+      diseaseType: 'SICK_NM',
     },
   });
 

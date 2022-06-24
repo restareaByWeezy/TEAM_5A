@@ -161,6 +161,7 @@ src/
 
 * CORS 문제를 해결해주기 위해서 [서버](https://github.com/restareaByWeezy/humanscape-server) 를 만들었고,  서버에서 api콜을 받아 다시 프론트엔드쪽으로 보내주는 방법을 선택했습니다.
 * 서버는 Node.js / express를 이용하여 만들었고, vercel로 배포하였습니다.
+-> 변경사항: 기존 vercel에서 aws beanstalk으로 새롭게 서버를 배포하였습니다.
 
 * SOP 는 브라우저의 스펙이므로 서버쪽에서는 CORS 허용 도메인을 자유롭게 정해줄 수 있기 때문에 서버를 사용했습니다.
 
